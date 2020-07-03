@@ -37,8 +37,8 @@ public extension FallingPiece {
 //
 //    var coordinateOfBottomRightCornerOfBoundingBox: Coordinate {
 //        .init(
-//            x: coordinateOfTopLeftCornerOfBoundingBox.x + width-1,
-//            y: coordinateOfTopLeftCornerOfBoundingBox.y + height-1
+//            x: leftMostFilledSquare.columnIndex + width-1,
+//            y: topMostFilledSquare.rowIndex + height-1
 //        )
 //    }
 }
