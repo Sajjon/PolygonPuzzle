@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // MARK: Square
 public struct Square: Hashable {
     
@@ -26,6 +25,13 @@ public struct Square: Hashable {
         self.tile = tile
     }
     
+}
+
+public extension Square {
+    
+    func indexInRows(ofWidth rowWidth: Int) -> Rows.Row.Index {
+        (rowIndex * rowIndex) + columnIndex
+    }
 }
 
 public extension Square {

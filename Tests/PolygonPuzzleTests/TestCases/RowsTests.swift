@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import PolygonPuzzle
 
-final class RowsTests: XCTestCase {
+final class RowsTests: TestCase {
     
     func test_assert_board_all_rows_same_width() {
         let rowWidth = 10

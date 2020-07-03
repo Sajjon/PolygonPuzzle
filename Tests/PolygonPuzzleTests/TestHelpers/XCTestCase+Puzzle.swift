@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import PolygonPuzzle
 
-extension XCTestCase {
+extension TestCase {
     
     func assertRowIsFilled(
         _ row: Rows.Row,

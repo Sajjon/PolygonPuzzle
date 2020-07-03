@@ -12,3 +12,9 @@ public struct Coordinate: Hashable {
     public internal(set) var x: Value
     public internal(set) var y: Value
 }
+
+public extension Coordinate {
+    init(column: Value, row: Value) {
+        self.init(x: column, y: row)
+    }
+}

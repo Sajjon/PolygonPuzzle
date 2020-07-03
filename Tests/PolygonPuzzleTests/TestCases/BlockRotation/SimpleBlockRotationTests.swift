@@ -8,7 +8,7 @@
 import XCTest
 @testable import PolygonPuzzle
 
-final class SimpleBlockRotationTests: XCTestCase {
+final class SimpleBlockRotationTests: TestCase {
 
     func test_assert_when_rotating_rotation__identity__clockwise_by_π½_we_get_rotation__idπ½Clockwise() {
         XCTAssertEqual(BlockRotation.identity.clockwiseRotation(), .idπ½Clockwise)

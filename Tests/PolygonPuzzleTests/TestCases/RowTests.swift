@@ -8,7 +8,7 @@
 import XCTest
 @testable import PolygonPuzzle
 
-final class RowTests: XCTestCase {
+final class RowTests: TestCase {
     
 
     // MARK: Row

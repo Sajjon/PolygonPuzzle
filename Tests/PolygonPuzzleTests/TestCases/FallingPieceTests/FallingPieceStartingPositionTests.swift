@@ -8,7 +8,7 @@
 import XCTest
 @testable import PolygonPuzzle
 
-final class FallingPieceStartingPositionTests: XCTestCase {
+final class FallingPieceStartingPositionTests: TestCase {
     
     func test_assert_falling_piece_init_without_rotation_starts_at_identity() {
         let piece = FallingPiece(block: .iBlock)
