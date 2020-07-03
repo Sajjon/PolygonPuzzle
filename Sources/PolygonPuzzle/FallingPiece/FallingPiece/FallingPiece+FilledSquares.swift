@@ -23,6 +23,20 @@ public extension FallingPiece {
         return rightMostSquare
     }
     
+    var bottomMostFilledSquare: Square {
+        guard let bottomMostSquare = filledSquares.max(by: \.rowIndex) else {
+            incorrectImplementation(shouldAlwaysBeAbleTo: "Get bottom most square")
+        }
+        return bottomMostSquare
+    }
+    
+    var topMostFilledSquare: Square {
+        guard let topMostFilledSquare = filledSquares.min(by: \.rowIndex) else {
+            incorrectImplementation(shouldAlwaysBeAbleTo: "Get top most square")
+        }
+        return topMostFilledSquare
+    }
+    
     func squares(includeEmpty: Bool = true) -> [Square] {
         return includeEmpty ? allSquares : filledSquares
     }

@@ -10,6 +10,9 @@ import Foundation
 public extension Block {
     typealias Layout =  [[Int]]
     
+    static func layoutOfBlock(_ block: Self, rotation: BlockRotation) -> Layout {
+        block.rawLayout(rotation: rotation)
+    }
     
     func rawLayout(rotation: BlockRotation) -> Layout {
         switch self {

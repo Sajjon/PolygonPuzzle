@@ -31,14 +31,14 @@ public extension FallingPiece {
         size.height
     }
     
-    var coordinateOfTopLeftCornerOfBoundingBox: Coordinate {
-        abstractFrame.coordinate
-    }
-    
-    var coordinateOfBottomRightCornerOfBoundingBox: Coordinate {
-        .init(
-            x: coordinateOfTopLeftCornerOfBoundingBox.x + width-1,
-            y: coordinateOfTopLeftCornerOfBoundingBox.y + height-1
-        )
-    }
+//    var coordinateOfTopLeftCornerOfBoundingBox: Coordinate {
+//        abstractFrame.coordinate
+//    }
+//
+//    var coordinateOfBottomRightCornerOfBoundingBox: Coordinate {
+//        .init(
+//            x: coordinateOfTopLeftCornerOfBoundingBox.x + width-1,
+//            y: coordinateOfTopLeftCornerOfBoundingBox.y + height-1
+//        )
+//    }
 }
