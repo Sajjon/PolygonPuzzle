@@ -3,5 +3,5 @@ import XCTest
 import PolygonPuzzleTests
 
 var tests = [XCTestCaseEntry]()
-tests += PolygonPuzzleTests.allTests()
+//tests += PolygonPuzzleTests.allTests()
 XCTMain(tests)
