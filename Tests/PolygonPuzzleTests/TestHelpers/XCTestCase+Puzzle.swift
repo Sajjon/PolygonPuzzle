@@ -37,32 +37,58 @@ extension TestCase {
         }
     }
     
-    func assertOnlyTileIsMutatedWhenClearing(filledRow row: Rows.Row, expectedRowIndex: Int = 0) {
-        XCTAssertTrue(row.isFilled)
-        var row = row
-        let filledTile = row[0].tile
-        let rowWidth = row.width
-        
-        func assertCorrectColumnIndices(expectedTile: Tile) {
-            XCTAssertEqual(row.width, rowWidth)
-            func assertCorrectColumn(_ columnIndex: Int) {
-                let square = row[columnIndex]
-                XCTAssertEqual(square.rowIndex, expectedRowIndex)
-                XCTAssertEqual(square.columnIndex, columnIndex)
-                XCTAssertEqual(square.tile, expectedTile)
-            }
-            for columnIndex in 0..<rowWidth {
-                assertCorrectColumn(columnIndex)
-            }
-        }
-        
-        // AFTER
-        assertCorrectColumnIndices(expectedTile: filledTile)
-        
-        // CLEAR ROW
-        row.clear()
-        
-        // AFTER
-        assertCorrectColumnIndices(expectedTile: .empty)
+    func assertRowIsEmpty(
+        _ row: Rows.Row,
+        _ line: Int = #line, _ file: String = #file
+    ) {
+        assertRowIsEmptyOrNot(row, expectedToBeEmpty: true, line, file)
     }
+    
+    func assertRowIsNotEmpty(
+        _ row: Rows.Row,
+        _ line: Int = #line, _ file: String = #file
+    ) {
+        assertRowIsEmptyOrNot(row, expectedToBeEmpty: false, line, file)
+    }
+    
+    private func assertRowIsEmptyOrNot(
+        _ row: Rows.Row, expectedToBeEmpty: Bool,
+        _ line: Int = #line, _ file: String = #file
+    ) {
+        let isEmpty = row.isEmpty
+        if expectedToBeEmpty {
+            XCTAssertTrue(isEmpty)
+        } else {
+            XCTAssertFalse(isEmpty)
+        }
+    }
+    
+//    func assertOnlyTileIsMutatedWhenClearing(filledRow row: Rows.Row, expectedRowIndex: Int = 0) {
+//        XCTAssertTrue(row.isFilled)
+//        var row = row
+//        let filledTile = row[0].tile
+//        let rowWidth = row.width
+//        
+//        func assertCorrectColumnIndices(expectedTile: Tile) {
+//            XCTAssertEqual(row.width, rowWidth)
+//            func assertCorrectColumn(_ columnIndex: Int) {
+//                let square = row[columnIndex]
+//                XCTAssertEqual(square.rowIndex, expectedRowIndex)
+//                XCTAssertEqual(square.columnIndex, columnIndex)
+//                XCTAssertEqual(square.tile, expectedTile)
+//            }
+//            for columnIndex in 0..<rowWidth {
+//                assertCorrectColumn(columnIndex)
+//            }
+//        }
+//        
+//        // AFTER
+//        assertCorrectColumnIndices(expectedTile: filledTile)
+//        
+//        // CLEAR ROW
+//        row.clear()
+//        
+//        // AFTER
+//        assertCorrectColumnIndices(expectedTile: .empty)
+//    }
 }

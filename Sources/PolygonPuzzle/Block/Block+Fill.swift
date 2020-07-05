@@ -10,13 +10,13 @@ import Foundation
 public extension Block {
     var fill: Tile.Fill {
         switch self {
-        case .oBlock: return .yellow
-        case .iBlock: return .teal
-        case .zBlock: return .red
-        case .sBlock: return .green
-        case .lBlock: return .orange
-        case .jBlock: return .blue
-        case .tBlock: return .purple
+        case .oBlock: return .oBlockFill
+        case .iBlock: return .iBlockFill
+        case .zBlock: return .zBlockFill
+        case .sBlock: return .sBlockFill
+        case .lBlock: return .lBlockFill
+        case .jBlock: return .jBlockFill
+        case .tBlock: return .tBlockFill
         }
     }
 }

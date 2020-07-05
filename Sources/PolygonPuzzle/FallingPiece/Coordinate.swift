@@ -17,4 +17,7 @@ public extension Coordinate {
     init(column: Value, row: Value) {
         self.init(x: column, y: row)
     }
+    
+    var row: Value { y }
+    var column: Value { x }
 }

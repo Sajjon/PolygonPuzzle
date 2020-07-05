@@ -29,24 +29,28 @@ public struct Square: Hashable {
 
 public extension Square {
     
-    func indexInRows(ofWidth rowWidth: Int) -> Rows.Row.Index {
-        (rowIndex * rowIndex) + columnIndex
+    var coordinate: Coordinate {
+        .init(column: columnIndex, row: rowIndex)
     }
 }
 
 public extension Square {
     
-    mutating func clear() {
-        tile = .empty
-    }
-    
-    func cleared() -> Self {
-        var copy = self
-        copy.clear()
-        return copy
-    }
+//    mutating func clear() {
+//        tile = .empty
+//    }
+//
+//    func cleared() -> Self {
+//        var copy = self
+//        copy.clear()
+//        return copy
+//    }
     
     var isFilled: Bool {
         tile.isFilled
+    }
+    
+    var isEmpty: Bool {
+       !isFilled
     }
 }

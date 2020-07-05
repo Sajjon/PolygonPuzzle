@@ -41,8 +41,23 @@ public extension FallingPiece {
         return includeEmpty ? allSquares : filledSquares
     }
 
-    private var filledSquares: [Square] {
+    var filledSquares: [Square] {
         allSquares.filter { $0.isFilled }
+    }
+    
+    var bottomMostFilledSquaresPerColumn: [Square] {
+        Dictionary(
+            grouping: filledSquares,
+            by: { $0.columnIndex }
+        )
+             .sorted(by: { $0.key < $1.key }) // sort by `columnIndex`
+        .map { kv -> Square in
+            let column: [Square] = kv.value
+            guard let bottomMostSquare = column.max(by: \.rowIndex) else {
+                incorrectImplementation(reason: "Expected square")
+            }
+            return bottomMostSquare
+        }
     }
     
     private var allSquares: [Square] {

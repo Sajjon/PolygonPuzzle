@@ -7,11 +7,17 @@
 
 import Foundation
 
+public func implementMe(
+    _ line: Int = #line, _ file: String = #file
+) -> Never {
+    fatalError("Implement me - \(line)@\(file)")
+}
+
 public func incorrectImplementation(
     reason: String,
     _ line: Int = #line, _ file: String = #file
 ) -> Never {
-    fatalError("Incorrect implementation: \(reason)")
+    fatalError("Incorrect implementation: \(reason) - \(line)@\(file)")
 }
 
 public func incorrectImplementation(

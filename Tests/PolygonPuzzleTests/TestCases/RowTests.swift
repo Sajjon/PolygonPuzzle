@@ -12,19 +12,31 @@ final class RowTests: TestCase {
     
 
     // MARK: Row
-    func test_assert_row_filled_4_yellow() {
-        assertRowIsFilled([.yellow, .yellow, .yellow, .yellow])
+    func test_assert_row_filled_4_squares() {
+        assertRowIsFilled([1, 1, 1, 1])
     }
     
-    func test_assert_row_filled_2_red_3_teal() {
-        assertRowIsFilled([.red, .red, .teal, .teal, .teal])
+    func test_assert_row_filled_5_squares() {
+        assertRowIsFilled([1, 1, 2, 2, 2])
     }
     
     func test_assert_row_not_filled_one_of_four_empty() {
-        assertRowIsNotFilled([.empty, .yellow, .yellow, .yellow])
+        assertRowIsNotFilled([0, 1, 1, 1])
     }
     
-    func test_assert_clearing_rows_mutates_tile_and_only_tile() {
-        assertOnlyTileIsMutatedWhenClearing(filledRow: [.red, .red, .red, .red])
+    func test_assert_row_empty_4_squares() {
+        assertRowIsEmpty([0, 0, 0, 0])
     }
+    
+    func test_assert_row_empty_5_squares() {
+        assertRowIsEmpty([0, 0, 0, 0, 0])
+    }
+    
+    func test_assert_row_not_empty_one_of_four_filled() {
+        assertRowIsNotEmpty([0, 0, 0, 1])
+    }
+    
+//    func test_assert_clearing_rows_mutates_tile_and_only_tile() {
+//        assertOnlyTileIsMutatedWhenClearing(filledRow: [.red, .red, .red, .red])
+//    }
 }

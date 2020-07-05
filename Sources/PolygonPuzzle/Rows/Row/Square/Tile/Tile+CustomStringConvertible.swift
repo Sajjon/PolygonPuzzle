@@ -12,15 +12,16 @@ extension Tile: CustomStringConvertible {
         switch self {
         case .empty: return "🤍"
         case .filled(let fill):
-            switch fill {
-            case .yellow: return "💛"
-            case .teal: return "🤎" // 🩱
-            case .red: return "❤️"
-            case .green: return "💚"
-            case .orange: return "🧡"
-            case .blue: return "💙"
-            case .purple: return "💜"
-            }
+            return fill.fillColor.description
+//            switch fill {
+//            case .yellow: return "💛"
+//            case .teal: return "🤎" // 🩱
+//            case .red: return "❤️"
+//            case .green: return "💚"
+//            case .orange: return "🧡"
+//            case .blue: return "💙"
+//            case .purple: return "💜"
+//            }
         }
     }
 }

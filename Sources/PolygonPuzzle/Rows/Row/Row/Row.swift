@@ -20,7 +20,7 @@ public extension Rows {
         public let width: Int
         
         /// The squares/cells of this row, from left to right, equal number of elements as `width`
-        private var squares: [Square]
+        public private(set) var squares: [Square]
         
         internal init(
             at index: Int,
@@ -48,11 +48,11 @@ public extension Rows {
     }
 }
 
-public extension Rows.Row {
-    mutating func clear() {
-        squares = squares.map { $0.cleared() }
-    }
-}
+//public extension Rows.Row {
+//    mutating func clear() {
+//        squares = squares.map { $0.cleared() }
+//    }
+//}
 
 // MARK: Collection
 public extension Rows.Row {
@@ -77,6 +77,7 @@ public extension Rows.Row {
     
     subscript(index: Index) -> Iterator.Element {
         get { squares[index] }
+        set { squares[index] = newValue }
     }
 }
 
