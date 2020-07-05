@@ -177,4 +177,82 @@ final class InlayPieceInRowsTests: TestCase {
             ]
         )
     }
+    
+    func test_assert_that_when_merging_a_piece_rotation_idπ½Clockwise_at_row0_with_rows_with_overlapping_squares_an_error_is_thrown() {
+        func assertReduction(pieceColumn: Int, expectCollision: Bool, rows: Rows) {
+            let piece = FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: pieceColumn, row: 0))
+            if expectCollision {
+                XCTFailure(
+                    Rows.reduce(state: rows, inlaying: piece),
+                    failsWithError: Rows.InlayPieceError.squaresOverlap
+                )
+            } else {
+                XCTAssertNoThrow(try Rows.reduce(state: rows, inlaying: piece).get())
+            }
+        }
+        
+        assertReduction(
+            pieceColumn: 0,
+            expectCollision: true,
+            rows: [
+                [0, 0, 1, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+                //            ^
+                // piece here
+            ]
+        )
+        
+        assertReduction(
+            pieceColumn: 0,
+            expectCollision: true,
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+                //            ^
+                // piece here
+            ]
+        )
+        
+        assertReduction(
+            pieceColumn: 0,
+            expectCollision: true,
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 0, 0]
+                //            ^
+                // piece here
+            ]
+        )
+        assertReduction(
+            pieceColumn: 0,
+            expectCollision: true,
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 1, 0]
+                //            ^
+                // piece here
+            ]
+        )
+        
+        assertReduction(
+            pieceColumn: 0,
+            expectCollision: false,
+            rows: [
+                [1, 1, 0, 0],
+                [1, 1, 0, 0],
+                [1, 1, 0, 0],
+                [1, 1, 0, 0]
+                //            ^
+                // piece here
+            ]
+        )
+    }
 }
