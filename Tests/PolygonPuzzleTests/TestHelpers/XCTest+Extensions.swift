@@ -35,4 +35,24 @@ public extension XCTestCase {
             throw error
         }
     }
+    
+    func XCTFailure<T, E>(
+        _ result: Swift.Result<T, E>,
+        failsWithError expectedError: E,
+        _ makeMessage: @autoclosure () -> String = "",
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) where E: Swift.Error & Equatable {
+        let message = makeMessage()
+        switch result {
+        case .failure(let actualError):
+            XCTAssertEqual(actualError, expectedError, message, file: file, line: line)
+        case .success(let successData):
+            XCTFail(
+                "Expected `.failure(\(expectedError)` from result, but unexpectedly got `.success(\(successData)`\(message)",
+                file: file,
+                line: line
+            )
+        }
+    }
 }

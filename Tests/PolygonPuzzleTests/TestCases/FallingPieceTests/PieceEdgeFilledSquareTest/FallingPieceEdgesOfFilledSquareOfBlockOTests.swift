@@ -15,27 +15,27 @@ final class FallingPieceEdgesOfFilledSquareOfBlockOTests: PieceEdgeFilledSquareT
     
     // MARK: Top
     func test_assert_top_most_filled_square_of_block_o() {
-        doTest(side: .top, expected: .first)
+        doTest(edge: .top, expected: .first)
     }
     
     // MARK: Bottom
     func test_assert_bottom_most_filled_square_of_block_o() {
-        doTest(side: .bottom, expected: .second)
+        doTest(edge: .bottom, expected: .second)
     }
     
     // MARK: Left
     func test_assert_left_most_filled_square_of_block_o() {
-        doTest(side: .left, expected: .first)
+        doTest(edge: .left, expected: .first)
     }
     
     // MARK: Right
     func test_assert_right_most_filled_square_of_block_o() {
-        doTest(side: .right, expected: .second)
+        doTest(edge: .right, expected: .second)
     }
 }
 
 private extension FallingPieceEdgesOfFilledSquareOfBlockOTests {
-    func doTest(side: Side, expected: Int) {
-        doTest(rotationsOfBlock: .oBlock, side: side, expected: .init(repeating: expected, count: BlockRotation.allCases.count))
+    func doTest(edge: Edge, expected: Int) {
+        doTest(rotationsOfBlock: .oBlock, edge: edge, expected: .init(repeating: expected, count: BlockRotation.allCases.count))
     }
 }

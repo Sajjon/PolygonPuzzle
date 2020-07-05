@@ -20,4 +20,6 @@ public extension Coordinate {
     
     var row: Value { y }
     var column: Value { x }
+    
+    static let zero = Self(column: 0, row: 0)
 }

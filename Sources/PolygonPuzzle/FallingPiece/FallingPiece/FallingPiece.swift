@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct FallingPiece {
+public struct FallingPiece: SquaresRepresentable {
+    
     public let block: Block
     public let rotation: BlockRotation
     

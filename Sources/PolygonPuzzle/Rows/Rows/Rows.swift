@@ -7,8 +7,7 @@
 
 import Foundation
 
-public struct Rows: Hashable, Collection, ExpressibleByArrayLiteral {
-    
+public struct Rows: Hashable, Collection, SquaresRepresentable {
     
     /// This minimum possible height of a rows, equal to the height of the `Block.iBlock`
     public static let minimumHeight = 4
@@ -26,11 +25,15 @@ public struct Rows: Hashable, Collection, ExpressibleByArrayLiteral {
     public let height: Int
     
     public init(rows: [Row]) {
+        var previousRowIndex = -1
         guard let row = rows.first, case let rowWidth = row.width else {
             fatalError("Rows cannot be empty")
         }
         precondition(rowWidth > 0)
         rows.forEach {
+            let rowIndex = $0.index
+            defer { previousRowIndex = rowIndex }
+            precondition(rowIndex == (previousRowIndex + 1))
             precondition($0.width == rowWidth)
         }
         let height  = rows.count
@@ -41,6 +44,7 @@ public struct Rows: Hashable, Collection, ExpressibleByArrayLiteral {
     }
 }
 
+// MARK: Public
 public extension Rows {
     init(
         count numberOfRows: Int = 20,
@@ -51,11 +55,24 @@ public extension Rows {
     
 }
 
-// MARK: ExpressibleByArrayLiteral
+// MARK: SquaresRepresentable
 public extension Rows {
-    typealias ArrayLiteralElement = Row
-    init(arrayLiteral rows: Row...) {
-        self.init(rows: rows)
+    var rowCount: Int {
+        height
+    }
+    
+    var squares: [Square] {
+        var allSquares = [Square]()
+        for row in self {
+            for square in row {
+                allSquares.append(square)
+            }
+        }
+        return allSquares
+    }
+    
+    func rowAtIndex(_ rowIndex: Int) -> Row {
+        self[rowIndex]
     }
 }
 

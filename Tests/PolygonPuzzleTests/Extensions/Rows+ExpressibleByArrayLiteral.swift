@@ -8,7 +8,7 @@
 import Foundation
 @testable import PolygonPuzzle
 
-extension Rows.Row: ExpressibleByArrayLiteral {
+extension Row: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = Tile
     
     public init(arrayLiteral tiles: ArrayLiteralElement...) {

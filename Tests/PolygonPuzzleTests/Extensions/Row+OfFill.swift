@@ -8,7 +8,7 @@
 import Foundation
 @testable import PolygonPuzzle
 
-extension Rows.Row {
+extension Row {
     
     static func red(at index: Int = 0, width: Int = Self.minimumWidth) -> Self {
         .init(repeating: .red, count: width, index: index)

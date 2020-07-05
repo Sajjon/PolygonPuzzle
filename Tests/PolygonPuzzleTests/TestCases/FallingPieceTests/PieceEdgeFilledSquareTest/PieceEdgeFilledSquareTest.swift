@@ -19,7 +19,7 @@ extension Int {
 
 class PieceEdgeFilledSquareTest: TestCase {
     
-    func doTest(rotationsOfBlock block: Block, side: Side, expected: [Int]) {
+    func doTest(rotationsOfBlock block: Block, edge: Edge, expected: [Int]) {
         
         let actual: [Int] = BlockRotation.allCases.map { rotation in
             let piece = FallingPiece(
@@ -27,8 +27,8 @@ class PieceEdgeFilledSquareTest: TestCase {
                 rotation: rotation,
                 coordinate: .init(column: 0, row: 0)
             )
-            let square = piece.firstFilledSquareFromSide(side)
-            let squareKeyPath: KeyPath<Square, Int> = square.columnOrRowKeyPath(side: side)
+            let square = piece.firstFilledSquareFromEdge(edge)
+            let squareKeyPath: KeyPath<Square, Int> = square.columnOrRowKeyPath(edge: edge)
             let actual = square[keyPath: squareKeyPath]
             return actual
         }
@@ -36,30 +36,4 @@ class PieceEdgeFilledSquareTest: TestCase {
         XCTAssertEqual(expected, actual)
     }
 
-}
-
-enum Side {
-    case top, bottom, left, right
-}
-
-extension FallingPiece {
-    
-    func firstFilledSquareFromSide(_ side: Side) -> Square {
-        switch side {
-        case .top: return topMostFilledSquare
-        case .bottom: return bottomMostFilledSquare
-        case .left: return leftMostFilledSquare
-        case .right: return rightMostFilledSquare
-        }
-    }
-    
-}
-
-extension Square {
-    func columnOrRowKeyPath(side: Side) -> KeyPath<Self, Int> {
-        switch side {
-        case .left, .right: return \.columnIndex
-        case .top, .bottom: return \.rowIndex
-        }
-    }
 }

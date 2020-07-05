@@ -30,15 +30,8 @@ public extension FallingPiece {
     var height: Size.Value {
         size.height
     }
+
     
-//    var coordinateOfTopLeftCornerOfBoundingBox: Coordinate {
-//        abstractFrame.coordinate
-//    }
-//
-//    var coordinateOfBottomRightCornerOfBoundingBox: Coordinate {
-//        .init(
-//            x: leftMostFilledSquare.columnIndex + width-1,
-//            y: topMostFilledSquare.rowIndex + height-1
-//        )
-//    }
+    var rowWidth: Int { width }
+    var rowCount: Int { height }
 }

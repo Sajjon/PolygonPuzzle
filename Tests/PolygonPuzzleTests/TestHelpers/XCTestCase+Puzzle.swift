@@ -12,21 +12,21 @@ import XCTest
 extension TestCase {
     
     func assertRowIsFilled(
-        _ row: Rows.Row,
+        _ row: Row,
         _ line: Int = #line, _ file: String = #file
     ) {
         assertRowIsFilledOrNot(row, expectedToBeFilled: true, line, file)
     }
     
     func assertRowIsNotFilled(
-        _ row: Rows.Row,
+        _ row: Row,
         _ line: Int = #line, _ file: String = #file
     ) {
         assertRowIsFilledOrNot(row, expectedToBeFilled: false, line, file)
     }
     
     private func assertRowIsFilledOrNot(
-        _ row: Rows.Row, expectedToBeFilled: Bool,
+        _ row: Row, expectedToBeFilled: Bool,
         _ line: Int = #line, _ file: String = #file
     ) {
         let isFilled = row.isFilled
@@ -38,21 +38,21 @@ extension TestCase {
     }
     
     func assertRowIsEmpty(
-        _ row: Rows.Row,
+        _ row: Row,
         _ line: Int = #line, _ file: String = #file
     ) {
         assertRowIsEmptyOrNot(row, expectedToBeEmpty: true, line, file)
     }
     
     func assertRowIsNotEmpty(
-        _ row: Rows.Row,
+        _ row: Row,
         _ line: Int = #line, _ file: String = #file
     ) {
         assertRowIsEmptyOrNot(row, expectedToBeEmpty: false, line, file)
     }
     
     private func assertRowIsEmptyOrNot(
-        _ row: Rows.Row, expectedToBeEmpty: Bool,
+        _ row: Row, expectedToBeEmpty: Bool,
         _ line: Int = #line, _ file: String = #file
     ) {
         let isEmpty = row.isEmpty
@@ -63,7 +63,7 @@ extension TestCase {
         }
     }
     
-//    func assertOnlyTileIsMutatedWhenClearing(filledRow row: Rows.Row, expectedRowIndex: Int = 0) {
+//    func assertOnlyTileIsMutatedWhenClearing(filledRow row: Row, expectedRowIndex: Int = 0) {
 //        XCTAssertTrue(row.isFilled)
 //        var row = row
 //        let filledTile = row[0].tile

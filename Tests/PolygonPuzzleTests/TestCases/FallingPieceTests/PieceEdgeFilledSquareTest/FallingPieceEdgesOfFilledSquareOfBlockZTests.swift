@@ -15,27 +15,27 @@ final class FallingPieceEdgesOfFilledSquareOfBlockZTests: PieceEdgeFilledSquareT
     
     // MARK: Top
     func test_assert_top_most_filled_square_of_block_z() {
-        doTest(side: .top, expected: [.first, .first, .second, .first])
+        doTest(edge: .top, expected: [.first, .first, .second, .first])
     }
     
     // MARK: Bottom
     func test_assert_bottom_most_filled_square_of_block_z() {
-        doTest(side: .bottom, expected: [.second, .third, .third, .third])
+        doTest(edge: .bottom, expected: [.second, .third, .third, .third])
     }
     
     // MARK: Left
     func test_assert_left_most_filled_square_of_block_z() {
-        doTest(side: .left, expected: [.first, .second, .first, .first])
+        doTest(edge: .left, expected: [.first, .second, .first, .first])
     }
     
     // MARK: Right
     func test_assert_right_most_filled_square_of_block_z() {
-        doTest(side: .right, expected: [.third, .third, .third, .second])
+        doTest(edge: .right, expected: [.third, .third, .third, .second])
     }
 }
 
 private extension FallingPieceEdgesOfFilledSquareOfBlockZTests {
-    func doTest(side: Side, expected: [Int]) {
-        doTest(rotationsOfBlock: .zBlock, side: side, expected: expected)
+    func doTest(edge: Edge, expected: [Int]) {
+        doTest(rotationsOfBlock: .zBlock, edge: edge, expected: expected)
     }
 }
