@@ -26,7 +26,7 @@ final class InlayPieceInRowsTests: TestCase {
         )
     }
 
-    func test_assert_that_when_merging_a_piece_that_is_not_in_frame_with_rows_we_get_result__pieceNotInFrame() throws {
+    func test_assert_that_when_merging_a_piece_rotation_identity_that_is_not_in_frame_with_rows_we_get_result__pieceNotInFrame() throws {
         let rows: Rows = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -40,7 +40,7 @@ final class InlayPieceInRowsTests: TestCase {
         XCTAssertEqual(reduction, .pieceNotInFrame)
     }
     
-    func test_assert_that_when_merging_a_piece_at_row0_with_rows_with_overlapping_squares_an_error_is_thrown() {
+    func test_assert_that_when_merging_a_piece_rotation_identity_at_row0_with_rows_with_overlapping_squares_an_error_is_thrown() {
         func assertCollision(rows: Rows) {
             let piece = FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero)
             XCTFailure(
@@ -86,7 +86,7 @@ final class InlayPieceInRowsTests: TestCase {
         )
     }
     
-    func test_assert_that_when_merging_a_piece_at_row_minus1_with_rows_with_overlapping_squares_an_error_is_thrown() {
+    func test_assert_that_when_merging_a_piece_rotation_identity_at_row_minus1_with_rows_with_overlapping_squares_an_error_is_thrown() {
         func assertCollision(rows: Rows) {
             let piece = FallingPiece(block: .iBlock, rotation: .identity, coordinate: .init(column: 0, row: -1))
             XCTFailure(
@@ -128,6 +128,51 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 1], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
+        )
+    }
+    
+    func test_assert_that_when_merging_a_piece_rotation_idπClockwise_at_row_minus1_with_rows_with_overlapping_squares_at_row_of_id_rotation_no_error_is_thrown() {
+        
+        func assertNoCollision(rows: Rows) {
+            let piece = FallingPiece(block: .iBlock, rotation: .idπClockwise, coordinate: .init(column: 0, row: -1))
+            XCTAssertNoThrow(try Rows.reduce(state: rows, inlaying: piece).get())
+        }
+        
+        assertNoCollision(
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [1, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
+        )
+        
+        assertNoCollision(
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [1, 1, 0, 0],
+                [0, 0, 0, 0]
+            ]
+        )
+        
+        assertNoCollision(
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [1, 1, 1, 0],
+                [0, 0, 0, 0]
+            ]
+        )
+        
+        
+        assertNoCollision(
+            rows: [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [1, 1, 0, 1],
                 [0, 0, 0, 0]
             ]
         )
