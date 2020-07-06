@@ -9,8 +9,8 @@ import Foundation
 
 public struct Row: Hashable, Collection, SquaresRepresentable {
     
-    /// This minimum possible width of a row, equal to the size of the `Block.iBlock`
-    public static let minimumWidth = 4
+    /// This minimum possible width of a row, one square wider then the width of a "horizontally" rotated `Block.iBlock`
+    public static let minimumWidth = 5
     
     /// Index from top of the board
     public let index: Int

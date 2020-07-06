@@ -10,16 +10,22 @@ import XCTest
 
 @testable import PolygonPuzzle
 
+extension Row {
+    static func empty(width: Int = Self.minimumWidth) -> Self {
+        .init(repeating: .empty, count: width)
+    }
+}
+
 final class InlayPieceInRowsTests: TestCase {
 
     func test_that_reduction_of_simple_rows_does_not_throw_error() throws {
         XCTAssertNoThrow(
             try Rows.reduce(
                 state: [
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0]
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0]
                 ],
                 inlaying: FallingPiece(block: .iBlock, rotation: .identity)
             ).get()
@@ -28,10 +34,10 @@ final class InlayPieceInRowsTests: TestCase {
 
     func test_assert_that_when_merging_a_piece_rotation_identity_that_is_not_in_frame_with_rows_we_get_result__pieceNotInFrame() throws {
         let rows: Rows = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
         ]
         
         let piece = FallingPiece(block: .iBlock, rotation: .identity)
@@ -51,37 +57,37 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertCollision(
             rows: [
-                [0, 0, 0, 0],
-                [1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
         assertCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
         assertCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
         assertCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 1], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
     }
@@ -97,38 +103,38 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertCollision(
             rows: [
-                [1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
         assertCollision(
             rows: [
-                [0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
         
         assertCollision(
             rows: [
-                [0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
         assertCollision(
             rows: [
-                [0, 0, 0, 1], // <--- `piece` will fill this row with rotation `.identity`
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
     }
@@ -142,38 +148,38 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertNoCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [1, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0]
             ]
         )
         
         assertNoCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [1, 1, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [1, 1, 0, 0, 0]
             ]
         )
         
         assertNoCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [1, 1, 1, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 0, 0]
             ]
         )
         
         
         assertNoCollision(
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
-                [1, 1, 0, 1],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
+                [1, 1, 0, 1, 0]
             ]
         )
     }
@@ -195,10 +201,10 @@ final class InlayPieceInRowsTests: TestCase {
             pieceColumn: 0,
             expectCollision: true,
             rows: [
-                [0, 0, 1, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
             ]
@@ -208,10 +214,10 @@ final class InlayPieceInRowsTests: TestCase {
             pieceColumn: 0,
             expectCollision: true,
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 1, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
             ]
@@ -221,10 +227,10 @@ final class InlayPieceInRowsTests: TestCase {
             pieceColumn: 0,
             expectCollision: true,
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 1, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
             ]
@@ -233,10 +239,10 @@ final class InlayPieceInRowsTests: TestCase {
             pieceColumn: 0,
             expectCollision: true,
             rows: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 1, 0]
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0]
                 //            ^
                 // piece here
             ]
@@ -246,12 +252,43 @@ final class InlayPieceInRowsTests: TestCase {
             pieceColumn: 0,
             expectCollision: false,
             rows: [
-                [1, 1, 0, 0],
-                [1, 1, 0, 0],
-                [1, 1, 0, 0],
-                [1, 1, 0, 0]
+                [1, 1, 0, 0, 0],
+                [1, 1, 0, 0, 0],
+                [1, 1, 0, 0, 0],
+                [1, 1, 0, 0, 0]
                 //            ^
                 // piece here
+            ]
+        )
+    }
+    
+    func test_collision_no_rows_cleared() throws {
+        let rows: Rows = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0]
+        ]
+        
+        let piece = FallingPiece.init(block: .iBlock, rotation: .identity, coordinate: .zero)
+        let reduction = try XCTGet(Rows.reduce(state: rows, inlaying: piece))
+        guard case .contact(let contact) = reduction else {
+            XCTFail("Expected .contact, but got: \(reduction)")
+            return
+        }
+        
+        guard case .noFilledRows(let rowsAfterContact) = contact else {
+            XCTFail("Expected .noFilledRows, but got: \(contact)")
+            return
+        }
+        
+        XCTAssertEqual(
+            rowsAfterContact,
+            [
+                [0, 0, 0, 0, 0],
+                [2, 2, 2, 2, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 1, 0, 0]
             ]
         )
     }

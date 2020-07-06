@@ -12,31 +12,28 @@ final class RowTests: TestCase {
     
 
     // MARK: Row
-    func test_assert_row_filled_4_squares() {
-        assertRowIsFilled([1, 1, 1, 1])
+    func test_assert_row_filled_5_squares() {
+        assertRowIsFilled([1, 1, 1, 1, 1])
     }
     
-    func test_assert_row_filled_5_squares() {
+    func test_assert_row_filled_5_squares_mixed() {
         assertRowIsFilled([1, 1, 2, 2, 2])
     }
     
-    func test_assert_row_not_filled_one_of_four_empty() {
-        assertRowIsNotFilled([0, 1, 1, 1])
-    }
-    
-    func test_assert_row_empty_4_squares() {
-        assertRowIsEmpty([0, 0, 0, 0])
+    func test_assert_row_not_filled_one_of_five_empty() {
+        assertRowIsNotFilled([0, 1, 1, 1, 1])
     }
     
     func test_assert_row_empty_5_squares() {
         assertRowIsEmpty([0, 0, 0, 0, 0])
     }
     
-    func test_assert_row_not_empty_one_of_four_filled() {
-        assertRowIsNotEmpty([0, 0, 0, 1])
+    func test_assert_row_empty_6_squares() {
+        assertRowIsEmpty([0, 0, 0, 0, 0, 0])
     }
     
-//    func test_assert_clearing_rows_mutates_tile_and_only_tile() {
-//        assertOnlyTileIsMutatedWhenClearing(filledRow: [.red, .red, .red, .red])
-//    }
+    func test_assert_row_not_empty_one_of_five_filled() {
+        assertRowIsNotEmpty([0, 0, 0, 1, 0])
+    }
+
 }
