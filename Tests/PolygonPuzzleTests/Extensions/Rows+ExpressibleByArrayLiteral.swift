@@ -37,7 +37,15 @@ extension Row: ExpressibleByArrayLiteral {
 extension Rows: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public init(stringLiteral rowsAsString: StringLiteralType) {
-        let rowStrings = rowsAsString.split(separator: "\n").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+        
+        let rowStrings = rowsAsString
+            .split(separator: "\n")
+            .map {
+                String($0)
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                    .replacingOccurrences(of: " ", with: "")
+            }
+        
         self.init(rowsWithoutIndices: rowStrings.map { Row(stringLiteral: $0) })
     }
 }

@@ -13,6 +13,13 @@ public func implementMe(
     fatalError("Implement me - \(line)@\(file)")
 }
 
+public func unexpectedlyCaught(
+    error: Swift.Error,
+    _ line: Int = #line, _ file: String = #file
+) -> Never {
+    fatalError("Unexpectedly caught error: \(error) - \(line)@\(file)")
+}
+
 public func incorrectImplementation(
     reason: String,
     _ line: Int = #line, _ file: String = #file

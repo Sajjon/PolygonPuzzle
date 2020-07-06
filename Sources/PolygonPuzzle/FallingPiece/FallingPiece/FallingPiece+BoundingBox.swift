@@ -8,7 +8,7 @@
 import Foundation
 
 public extension FallingPiece {
-    struct BoundingBox {
+    struct BoundingBox: Hashable {
         public let size: Size
         
         /// Coordinate of the top left corner of this bounding box

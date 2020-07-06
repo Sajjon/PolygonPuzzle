@@ -105,6 +105,10 @@ public extension SquaresRepresentable {
         rowCount - 1
     }
     
+    var rightMostColumnIndex: Int {
+        rowWidth - 1
+    }
+    
     var bottomMostRow: Row {
 //        rows[bottomMostRowIndex]
         implementMe()

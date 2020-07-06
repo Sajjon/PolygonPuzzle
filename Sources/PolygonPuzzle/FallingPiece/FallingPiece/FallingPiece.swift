@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FallingPiece: SquaresRepresentable {
+public struct FallingPiece: SquaresRepresentable, Hashable {
     
     public let block: Block
     public let rotation: BlockRotation
@@ -27,6 +27,20 @@ public struct FallingPiece: SquaresRepresentable {
         self.abstractFrame = .init(
             size: size,
             coordinate: coordinate ?? Coordinate.init(x: 0, y: -size.width)
+        )
+    }
+}
+
+public extension FallingPiece {
+    init(
+        block: Block,
+        rotation: BlockRotation = .identity,
+        column: Int
+    ) {
+        self.init(
+            block: block,
+            rotation: rotation,
+            coordinate: .init(x: column, y: -block.size.width)
         )
     }
 }
