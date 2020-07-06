@@ -45,7 +45,13 @@ final class InlayPieceInRowsTests: TestCase {
         let piece = FallingPiece(block: .iBlock, rotation: .identity)
         
         let reduction = try XCTGet(Rows.reduce(state: rows, inlaying: piece))
-        XCTAssertEqual(reduction, .pieceNotInFrame)
+        XCTAssertEqual(reduction, Rows.RowsReduction.pieceNotInFrame(rowsIncludingFallingPiece: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]))
     }
     
     func test_assert_that_when_merging_a_piece_rotation_identity_at_row0_with_rows_with_overlapping_squares_an_error_is_thrown() {
