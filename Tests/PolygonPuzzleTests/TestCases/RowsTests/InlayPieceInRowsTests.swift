@@ -25,6 +25,7 @@ final class InlayPieceInRowsTests: TestCase {
                     [0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0]
                 ],
                 inlaying: FallingPiece(block: .iBlock, rotation: .identity)
@@ -34,6 +35,7 @@ final class InlayPieceInRowsTests: TestCase {
 
     func test_assert_that_when_merging_a_piece_rotation_identity_that_is_not_in_frame_with_rows_we_get_result__pieceNotInFrame() throws {
         let rows: Rows = [
+            [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0],
@@ -60,7 +62,9 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
+                
             ]
         )
         
@@ -68,6 +72,7 @@ final class InlayPieceInRowsTests: TestCase {
             rows: [
                 [0, 0, 0, 0, 0],
                 [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
             ]
@@ -78,6 +83,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
             ]
         )
@@ -86,6 +92,7 @@ final class InlayPieceInRowsTests: TestCase {
             rows: [
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
             ]
@@ -106,6 +113,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
             ]
         )
@@ -113,6 +121,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertCollision(
             rows: [
                 [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -125,6 +134,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
             ]
         )
@@ -132,6 +142,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertCollision(
             rows: [
                 [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -151,6 +162,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [1, 0, 0, 0, 0]
             ]
         )
@@ -160,7 +172,8 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
-                [1, 1, 0, 0, 0]
+                [1, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
@@ -169,7 +182,8 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
-                [1, 1, 1, 0, 0]
+                [1, 1, 1, 0, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
         
@@ -179,7 +193,8 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
                 [0, 0, 0, 0, 0],
-                [1, 1, 0, 1, 0]
+                [1, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0]
             ]
         )
     }
@@ -204,6 +219,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 1, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
@@ -217,6 +233,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0],
                 [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
@@ -230,6 +247,7 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
@@ -242,7 +260,8 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
-                [0, 0, 1, 0, 0]
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0]
                 //            ^
                 // piece here
             ]
@@ -252,6 +271,7 @@ final class InlayPieceInRowsTests: TestCase {
             pieceColumn: 0,
             expectCollision: false,
             rows: [
+                [1, 1, 0, 0, 0],
                 [1, 1, 0, 0, 0],
                 [1, 1, 0, 0, 0],
                 [1, 1, 0, 0, 0],
@@ -267,10 +287,11 @@ final class InlayPieceInRowsTests: TestCase {
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
             [0, 0, 1, 0, 0]
         ]
         
-        let piece = FallingPiece.init(block: .iBlock, rotation: .identity, coordinate: .zero)
+        let piece = FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero)
         let reduction = try XCTGet(Rows.reduce(state: rows, inlaying: piece))
         guard case .contact(let contact) = reduction else {
             XCTFail("Expected .contact, but got: \(reduction)")
@@ -288,8 +309,68 @@ final class InlayPieceInRowsTests: TestCase {
                 [0, 0, 0, 0, 0],
                 [2, 2, 2, 2, 0],
                 [0, 0, 1, 0, 0],
+                [0, 0, 1, 0, 0],
                 [0, 0, 1, 0, 0]
             ]
+        )
+    }
+    
+//    func test_contact_clearing_rows_1() {
+//        assertDidFillAndClearRows(
+//            piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero),
+//            expectedNumberOfRowsCleared: <#T##Int#>,
+//
+//            before: <#T##Rows#>,
+//            
+//            expectedRowsAfterContactButBeforeBeingCleared: <#T##Rows#>,
+//            
+//            
+//            expectedRowsAfterContactAndAfterBeingCleared: <#T##Rows#>)
+//    }
+}
+
+extension TestCase {
+    func assertDidFillAndClearRows(
+        piece: FallingPiece,
+        expectedNumberOfRowsCleared: Int,
+        before rows: Rows,
+        expectedRowsAfterContactButBeforeBeingCleared: Rows,
+        expectedRowsAfterContactAndAfterBeingCleared: Rows
+    ) {
+        let reduction: Rows.RowsReduction
+        do {
+            reduction = try XCTGet(Rows.reduce(state: rows, inlaying: piece))
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+            return
+        }
+        guard case .contact(let contact) = reduction else {
+            XCTFail("Expected .contact, but got: \(reduction)")
+            return
+        }
+        
+        guard case .didFillAndClearRows(
+                let collidedRowsBeforeBeingCleared,
+                let numberOfRowsCleared,
+                let rowsAfterBeingCleared
+        ) = contact else {
+            XCTFail("Expected .didFillAndClearRows, but got: \(contact)")
+            return
+        }
+        
+        XCTAssertEqual(
+            collidedRowsBeforeBeingCleared,
+            expectedRowsAfterContactButBeforeBeingCleared
+        )
+        
+        XCTAssertEqual(
+            numberOfRowsCleared,
+            expectedNumberOfRowsCleared
+        )
+        
+        XCTAssertEqual(
+            rowsAfterBeingCleared,
+            expectedRowsAfterContactAndAfterBeingCleared
         )
     }
 }

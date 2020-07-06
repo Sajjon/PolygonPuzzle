@@ -9,8 +9,8 @@ import Foundation
 
 public struct Rows: Hashable, Collection, SquaresRepresentable {
     
-    /// This minimum possible height of a rows, equal to the height of the `Block.iBlock`
-    public static let minimumHeight = 4
+    /// This minimum possible height of a rows,  one square higher then the height of a "veritcall" rotated `Block.iBlock`
+    public static let minimumHeight = 5
     
     public var rows: [Row] {
         willSet {
