@@ -115,16 +115,45 @@ public extension Rows {
             inlayedRows[pieceSquare.coordinate] = pieceSquare
         }
         
-        var indiciesOfRowsToClear = Set(inlayedRows.filter { $0.isFilled }.map { $0.index })
-        
-        let numberOfFilledRows = indiciesOfRowsToClear.count
+        let numberOfFilledRows = inlayedRows.filter { $0.isFilled }.map { $0.index }.count
         
         guard numberOfFilledRows > 0 else {
             return .success(.contact(.noFilledRows(rowsAfterContact: inlayedRows)))
         }
         
-        fatalError("populate clearedRows")
-        var clearedRows = inlayedRows
+        var nonFilledRows = inlayedRows.filter { !$0.isFilled }
+        
+        var nonFilledRowsFromBottomUp = [Row]()
+        while let row = nonFilledRows.popLast() {
+            let rowIndex = rows.bottomMostRowIndex - nonFilledRowsFromBottomUp.count
+            let translatedRow = Row(
+                at: rowIndex,
+                width: row.width,
+                squares: row.map { square in
+                    Square(
+                        columnIndex: square.columnIndex,
+                        rowIndex: rowIndex,
+                        tile: square.tile
+                    )
+                }
+            )
+            
+            nonFilledRowsFromBottomUp.append(translatedRow)
+        }
+        
+        for _ in 0..<(rows.height - nonFilledRowsFromBottomUp.count) {
+            let rowIndex = rows.bottomMostRowIndex - nonFilledRowsFromBottomUp.count
+            let emptyRow = Row(at: rowIndex, width: rows.rowWidth)
+            nonFilledRowsFromBottomUp.append(emptyRow)
+        }
+        
+        let clearedRows = Rows(rows: nonFilledRowsFromBottomUp.reversed())
+        
+        assert(clearedRows.height == rows.height)
+        
+        clearedRows.forEach { row in
+            assert(!row.isFilled)
+        }
         
         return .success(
             .contact(

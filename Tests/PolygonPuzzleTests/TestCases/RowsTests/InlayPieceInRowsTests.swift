@@ -315,18 +315,177 @@ final class InlayPieceInRowsTests: TestCase {
         )
     }
     
-//    func test_contact_clearing_rows_1() {
-//        assertDidFillAndClearRows(
-//            piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero),
-//            expectedNumberOfRowsCleared: <#T##Int#>,
-//
-//            before: <#T##Rows#>,
-//            
-//            expectedRowsAfterContactButBeforeBeingCleared: <#T##Rows#>,
-//            
-//            
-//            expectedRowsAfterContactAndAfterBeingCleared: <#T##Rows#>)
-//    }
+    func test_contact_clearing_rows_1() {
+        assertDidFillAndClearRows(
+            piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .init(column: 0, row: 3)),
+            expectedNumberOfRowsCleared: 1,
+
+            before: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1]
+            ],
+            
+            expectedRowsAfterContactButBeforeBeingCleared: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [2, 2, 2, 2, 1]
+            ],
+            
+            
+            expectedRowsAfterContactAndAfterBeingCleared:  [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
+            ]
+            
+        )
+    }
+    
+    func test_contact_clearing_rows_2_column1() {
+        assertDidFillAndClearRows(
+            piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
+            expectedNumberOfRowsCleared: 2,
+
+            before: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 0, 1],
+                [1, 1, 1, 0, 1]
+            ],
+            
+            expectedRowsAfterContactButBeforeBeingCleared: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 2, 0],
+                [0, 0, 0, 2, 0],
+                [1, 1, 1, 2, 1],
+                [1, 1, 1, 2, 1]
+            ],
+            
+            
+            expectedRowsAfterContactAndAfterBeingCleared:  [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 2, 0],
+                [0, 0, 0, 2, 0]
+            ]
+        )
+    }
+    
+    func test_contact_clearing_rows_2_column2() {
+        assertDidFillAndClearRows(
+            piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 2, row: 1)),
+            expectedNumberOfRowsCleared: 2,
+
+            before: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 1, 0],
+                [1, 1, 1, 1, 0]
+            ],
+            
+            expectedRowsAfterContactButBeforeBeingCleared: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 2],
+                [0, 0, 0, 0, 2],
+                [1, 1, 1, 1, 2],
+                [1, 1, 1, 1, 2]
+            ],
+            
+            
+            expectedRowsAfterContactAndAfterBeingCleared:  [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 2],
+                [0, 0, 0, 0, 2]
+            ]
+        )
+    }
+    
+    func test_tiles_from_string() {
+        let tiles: [Tile] = ["💛", "💙"]
+        XCTAssertEqual(tiles, [.yellow, .blue])
+    }
+    
+    func test_row_from_string() {
+        let row: Row = "💛💙❤️💜🤍"
+        XCTAssertEqual(row, [.yellow, .blue, .red, .purple, .empty])
+    }
+    
+    
+    func test_contact_clearing_rows_3_column1_non_continous() {
+        assertDidFillAndClearRows(
+            piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
+            expectedNumberOfRowsCleared: 3,
+
+            before: [
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 0, 1],
+                [1, 1, 1, 0, 1],
+                [1, 1, 1, 0, 0],
+                [1, 1, 1, 0, 1]
+            ],
+            
+            expectedRowsAfterContactButBeforeBeingCleared: [
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 2, 1],
+                [1, 1, 1, 2, 1],
+                [1, 1, 1, 2, 0],
+                [1, 1, 1, 2, 1]
+            ],
+            
+            
+            expectedRowsAfterContactAndAfterBeingCleared:  [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 2, 0]
+            ]
+        )
+    }
+    
+    func test_contact_clearing_rows_t_block() {
+        assertDidFillAndClearRows(
+            piece: FallingPiece(block: .tBlock, rotation: .identity, coordinate: .init(column: 1, row: 2)),
+            expectedNumberOfRowsCleared: 2,
+
+            before: [
+                "🤍🤍🤍🤍🤍",
+                "💚🤍🤍🤍💛",
+                "🧡🤍🤍🤍🤎",
+                "💙🤍🤍🤍💙",
+                "❤️❤️🤍❤️❤️"
+            ],
+            
+            expectedRowsAfterContactButBeforeBeingCleared: [
+                "🤍🤍🤍🤍🤍",
+                "💚🤍🤍🤍💛",
+                "🧡🤍🤍🤍🤎",
+                "💙💜💜💜💙",
+                "❤️❤️💜❤️❤️"
+            ],
+            
+            
+            expectedRowsAfterContactAndAfterBeingCleared:  [
+                "🤍🤍🤍🤍🤍",
+                "🤍🤍🤍🤍🤍",
+                "🤍🤍🤍🤍🤍",
+                "💚🤍🤍🤍💛",
+                "🧡🤍🤍🤍🤎"
+            ]
+        )
+    }
 }
 
 extension TestCase {

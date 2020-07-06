@@ -33,3 +33,45 @@ extension Row: ExpressibleByArrayLiteral {
         self.init(tiles: .init(repeating: tile, count: count), index: index)
     }
 }
+extension Row: ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public init(stringLiteral rowAsString: StringLiteralType) {
+        self.init(tiles: rowAsString.map { Tile(stringLiteral: String($0)) })
+    }
+}
+
+extension Tile: ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public init(stringLiteral value: StringLiteralType) {
+        if value == "🤍" {
+            self = .empty
+        } else {
+            self = .filled(Fill(stringLiteral: value))
+        }
+    }
+}
+
+
+extension Tile.Fill: ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public init(stringLiteral value: StringLiteralType) {
+        let fillColor = FillColor(stringLiteral: value)
+        self = Self(ofColor: fillColor)
+    }
+}
+
+extension Tile.Fill.FillColor: ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public init(stringLiteral value: StringLiteralType) {
+        switch value {
+        case "💛": self = .yellow
+        case "🤎": self = .teal // for lack of teal colored heart
+        case "❤️": self = .red
+        case "💚": self = .green
+        case "🧡": self = .orange
+        case "💙": self = .blue
+        case "💜": self = .purple
+        default: incorrectImplementation(reason: "Incorrect string literal for fillcolor: \(value)")
+        }
+    }
+}
