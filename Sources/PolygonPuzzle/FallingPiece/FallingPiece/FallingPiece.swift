@@ -35,12 +35,15 @@ public extension FallingPiece {
     init(
         block: Block,
         rotation: BlockRotation = .identity,
-        column: Int
+        centerInColumn: Int
     ) {
         self.init(
             block: block,
             rotation: rotation,
-            coordinate: .init(x: column, y: -block.size.width)
+            coordinate: .init(
+                x: centerInColumn - block.size.width/2,
+                y: -block.size.height
+            )
         )
     }
 }

@@ -14,8 +14,12 @@ public extension Rows {
     }
     
     enum RowsReduction: Equatable {
-        case pieceNotInFrame
-        case noContact(distancePerColumnInPiece: [Int])
+        case pieceNotInFrame(rowsIncludingFallingPiece: Rows)
+        
+        case noContact(
+                distancePerColumnInPiece: [Int],
+                rowsIncludingFallingPiece: Rows
+             )
         
         public enum Contact: Equatable {
             case noFilledRows(rowsAfterContact: Rows)
@@ -36,35 +40,50 @@ public extension Rows {
         set { self[coordinate.row][coordinate.column] = newValue }
     }
     
-    mutating func reduce(inlaying piece: FallingPiece) {
+    
+    enum RowAndPieceMerge {
+        case contact(numberOfRowsClearedIfAny: Int)
+        case noContact(rowsIncludingFallingPiece: Rows, isPieceInFrame: Bool)
+    }
+    
+    mutating func reduce(inlaying piece: FallingPiece) -> RowAndPieceMerge {
         do {
             let rowsReduction = try Self.reduce(state: self, inlaying: piece).get()
             switch rowsReduction {
             
-            case .pieceNotInFrame:
+            case .pieceNotInFrame(let rowsIncludingFallingPiece):
                 print("piece not in frame")
+                return .noContact(rowsIncludingFallingPiece: rowsIncludingFallingPiece, isPieceInFrame: false)
                 
-            case .noContact(let distancePerColumnInPiece):
+            case .noContact(let distancePerColumnInPiece, let rowsIncludingFallingPiece):
                 print("No contact, distances per column of piece: \(distancePerColumnInPiece)")
-           
+                return .noContact(
+                    rowsIncludingFallingPiece: rowsIncludingFallingPiece,
+                    isPieceInFrame: true
+                )
+                
             case .contact(let contact):
                 switch contact {
-                
                 case .noFilledRows(let rowsAfterContact):
                     print("contact, but did not clear fill any rows")
                     self = rowsAfterContact
                     
+                    return .contact(numberOfRowsClearedIfAny: 0)
+                    
                 case .didFillAndClearRows(
-                        let collidedRowsBeforeBeingCleared,
-                        let rowsAfterBeingCleared,
+                    _,
+                    let rowsAfterBeingCleared,
                     let numberOfRowsCleared
                 ):
-                print("contact: #rows to clear: \(numberOfRowsCleared)")
-                self = rowsAfterBeingCleared
+                    print("contact: #rows to clear: \(numberOfRowsCleared)")
+                    self = rowsAfterBeingCleared
+                    
+                    return .contact(numberOfRowsClearedIfAny: numberOfRowsCleared)
                 }
             }
         } catch {
             print("error reducing rows: \(error)")
+            unexpectedlyCaught(error: error)
         }
     }
     
@@ -84,7 +103,14 @@ public extension Rows {
             case let pieceCompletelyInFrame =  piece.topMostFilledSquare.rowIndex >= 0,
             pieceCompletelyInFrame
         else {
-            return .success(.pieceNotInFrame)
+            
+            var rowsIncludingFallingPiece = rows
+            for pieceSquare in piece.filledSquares where pieceSquare.rowIndex >= 0 {
+                rowsIncludingFallingPiece[pieceSquare.coordinate] = pieceSquare
+            }
+            
+            
+            return .success(.pieceNotInFrame(rowsIncludingFallingPiece: rowsIncludingFallingPiece))
         }
         
         
@@ -111,8 +137,17 @@ public extension Rows {
         let willMakeContact = minimumCollisionDistanceWithColumnIndex.value <= 1
         
         guard willMakeContact else {
+            
+            var rowsIncludingFallingPiece = rows
+            for pieceSquare in piece.filledSquares {
+                rowsIncludingFallingPiece[pieceSquare.coordinate] = pieceSquare
+            }
+            
             return .success(
-                .noContact(distancePerColumnInPiece: collisionDistancePerColumn.values.map { $0 })
+                .noContact(
+                    distancePerColumnInPiece: collisionDistancePerColumn.values.map { $0 },
+                    rowsIncludingFallingPiece: rowsIncludingFallingPiece
+                )
             )
         }
         

@@ -16,7 +16,7 @@ public extension CaseIterable {
 public struct Board: Equatable {
     public private(set) var fallingPiece: FallingPiece
     public private(set) var nextBlock: Block
-    public private(set) var rows: Rows
+    private var rowsExcludingFallingPiece: Rows
     private let didScore: (Int) -> Void
     public let width: Int
     public let height: Int
@@ -29,13 +29,13 @@ public struct Board: Equatable {
         didScore: @escaping (Int) -> Void = { print("Did clear #\($0) rows") }
     ) {
         
-        self.rows = rows
+        self.rowsExcludingFallingPiece = rows
         let width = rows[0].width
         
         self.fallingPiece = .init(
             block: fallingBlock,
             rotation: fallingBlockRotation,
-            column: width/2
+            centerInColumn: width/2
         )
         
         self.nextBlock = nextBlock
@@ -48,7 +48,7 @@ public struct Board: Equatable {
         fallingBlock: Block = .random(),
         fallingBlockRotation: BlockRotation = .random(),
         nextBlock: Block = Block.random(),
-        count numberOfRows: Int = 20,
+        numberOfRows: Int = 20,
         ofWidth rowWidth: Int = 10,
         didScore: @escaping (Int) -> Void = { print("Did clear #\($0) rows") }
     ) {
@@ -64,7 +64,7 @@ public struct Board: Equatable {
 
 public extension Board {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.rows == rhs.rows && lhs.fallingPiece == rhs.fallingPiece
+        lhs.rowsIncludingFallingPiece == rhs.rowsIncludingFallingPiece
     }
 }
 
@@ -73,27 +73,58 @@ private extension Board {
         fallingPiece = .init(
             block: nextBlock,
             rotation: .identity,
-            column: width/2
+            centerInColumn: width/2
         )
         nextBlock = Block.random()
     }
     
+    mutating func updateRows() {
+        let result = rowsExcludingFallingPiece.reduce(inlaying: fallingPiece)
+        switch result {
+        case .contact(let numberOfRowsClearedIfAny):
+            // This WILL have edit `rows`
+            didScore(numberOfRowsClearedIfAny)
+        case .noContact(
+                let rowsIncludingFallingPiece,
+                let isPieceInFrame
+        ):
+            print("no contact - isPieceInFrame: \(isPieceInFrame)")
+        }
+    }
 }
 
 public extension Board {
+    
+    var rowsIncludingFallingPiece: Rows {
+        do {
+            let result = try Rows.reduce(state: rowsExcludingFallingPiece, inlaying: fallingPiece).get()
+            switch result {
+            case .contact:
+                return rowsExcludingFallingPiece
+            case .noContact(_, let rowsIncludingFallingPiece):
+                return rowsIncludingFallingPiece
+            case .pieceNotInFrame(let rowsIncludingFallingPiece):
+                return rowsIncludingFallingPiece
+            }
+        } catch {
+            unexpectedlyCaught(error: error)
+        }
+    }
     
     enum Error: Swift.Error {
         case cannotMoveLeftIsAtEdge
         case cannotMoveRightIsAtEdge
     }
     
-    mutating func moveDown() {
+    mutating func movePieceDown() {
         fallingPiece.moveDown()
+        updateRows()
     }
     
-    mutating func moveLeft() throws {
+    mutating func movePieceLeft() throws {
         do {
             try fallingPiece.moveLeft()
+            updateRows()
         } catch FallingPiece.Error.cannotMoveLeftIsAtEdge {
             throw Error.cannotMoveLeftIsAtEdge
         } catch {
@@ -101,10 +132,11 @@ public extension Board {
         }
     }
     
-    mutating func moveRight() throws {
-        if fallingPiece.rightMostFilledSquare.columnIndex == rows.rightMostColumnIndex {
+    mutating func movePieceRight() throws {
+        if fallingPiece.rightMostFilledSquare.columnIndex == width - 1 {
             throw Error.cannotMoveRightIsAtEdge
         }
         fallingPiece.moveRight()
+        updateRows()
     }
 }
