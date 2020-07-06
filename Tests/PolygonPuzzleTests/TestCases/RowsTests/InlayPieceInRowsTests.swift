@@ -283,132 +283,60 @@ final class InlayPieceInRowsTests: TestCase {
     }
     
     func test_collision_no_rows_cleared() throws {
-        let rows: Rows = [
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0]
-        ]
-        
-        let piece = FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero)
-        let reduction = try XCTGet(Rows.reduce(state: rows, inlaying: piece))
-        guard case .contact(let contact) = reduction else {
-            XCTFail("Expected .contact, but got: \(reduction)")
-            return
-        }
-        
-        guard case .noFilledRows(let rowsAfterContact) = contact else {
-            XCTFail("Expected .noFilledRows, but got: \(contact)")
-            return
-        }
-        
-        XCTAssertEqual(
-            rowsAfterContact,
-            [
-                [0, 0, 0, 0, 0],
-                [2, 2, 2, 2, 0],
-                [0, 0, 1, 0, 0],
-                [0, 0, 1, 0, 0],
-                [0, 0, 1, 0, 0]
-            ]
-        )
-    }
-    
-    func test_contact_clearing_rows_1() {
-        assertDidFillAndClearRows(
-            piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .init(column: 0, row: 3)),
-            expectedNumberOfRowsCleared: 1,
-
-            before: [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 1]
+        assertContact(
+            piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero),
+            before:  [
+                "🤍🤍🤍🤍🤍",
+                "🤍🤍🤍🤍🤍",
+                "🤍🤍💛🤍🤍",
+                "🤍🤍💛🤍🤍",
+                "🤍🤍💛🤍🤍"
             ],
+            contact: .noFilledRows(
+                rowsAfterContact: [
+                    "🤍🤍🤍🤍🤍",
+                    "🤎🤎🤎🤎🤍",
+                    "🤍🤍💛🤍🤍",
+                    "🤍🤍💛🤍🤍",
+                    "🤍🤍💛🤍🤍"
+                ]
+            )
             
-            expectedRowsAfterContactButBeforeBeingCleared: [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [2, 2, 2, 2, 1]
-            ],
-            
-            
-            expectedRowsAfterContactAndAfterBeingCleared:  [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0]
-            ]
-            
-        )
-    }
-    
-    func test_contact_clearing_rows_2_column1() {
-        assertDidFillAndClearRows(
-            piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
-            expectedNumberOfRowsCleared: 2,
-
-            before: [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 0, 1],
-                [1, 1, 1, 0, 1]
-            ],
-            
-            expectedRowsAfterContactButBeforeBeingCleared: [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 2, 0],
-                [0, 0, 0, 2, 0],
-                [1, 1, 1, 2, 1],
-                [1, 1, 1, 2, 1]
-            ],
-            
-            
-            expectedRowsAfterContactAndAfterBeingCleared:  [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 2, 0],
-                [0, 0, 0, 2, 0]
-            ]
         )
     }
     
     func test_contact_clearing_rows_2_column2() {
-        assertDidFillAndClearRows(
+        assertContact(
             piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 2, row: 1)),
-            expectedNumberOfRowsCleared: 2,
-
+            
             before: [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 1, 0],
-                [1, 1, 1, 1, 0]
+                "🤍🤍🤍🤍🤍",
+                "🤍🤍🤍🤍🤍",
+                "🤍🤍🤍🤍🤍",
+                "💛💛💛💛🤍",
+                "💛💛💛💛🤍"
             ],
             
-            expectedRowsAfterContactButBeforeBeingCleared: [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 2],
-                [0, 0, 0, 0, 2],
-                [1, 1, 1, 1, 2],
-                [1, 1, 1, 1, 2]
-            ],
-            
-            
-            expectedRowsAfterContactAndAfterBeingCleared:  [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 2],
-                [0, 0, 0, 0, 2]
-            ]
+            contact: .didFillAndClearRows(
+                
+                collidedRowsBeforeBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤎",
+                    "🤍🤍🤍🤍🤎",
+                    "💛💛💛💛🤎",
+                    "💛💛💛💛🤎"
+                ],
+                
+                rowsAfterBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤎",
+                    "🤍🤍🤍🤍🤎",
+                ],
+                
+                numberOfRowsCleared: 2
+            )
         )
     }
     
@@ -422,44 +350,45 @@ final class InlayPieceInRowsTests: TestCase {
         XCTAssertEqual(row, [.yellow, .blue, .red, .purple, .empty])
     }
     
-    
     func test_contact_clearing_rows_3_column1_non_continous() {
-        assertDidFillAndClearRows(
+        assertContact(
             piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
-            expectedNumberOfRowsCleared: 3,
-
+            
             before: [
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 0, 1],
-                [1, 1, 1, 0, 1],
-                [1, 1, 1, 0, 0],
-                [1, 1, 1, 0, 1]
+                "🤍🤍🤍🤍🤍",
+                "💚💜💙🤍💛",
+                "🤎❤️💚🤍🧡",
+                "💜💛💜🤍🤍",
+                "❤️🧡💚🤍❤️"
             ],
             
-            expectedRowsAfterContactButBeforeBeingCleared: [
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 2, 1],
-                [1, 1, 1, 2, 1],
-                [1, 1, 1, 2, 0],
-                [1, 1, 1, 2, 1]
-            ],
-            
-            
-            expectedRowsAfterContactAndAfterBeingCleared:  [
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 2, 0]
-            ]
+            contact: .didFillAndClearRows(
+                
+                collidedRowsBeforeBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "💚💜💙🤎💛",
+                    "🤎❤️💚🤎🧡",
+                    "💜💛💜🤎🤍",
+                    "❤️🧡💚🤎❤️"
+                ],
+                
+                rowsAfterBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "💜💛💜🤎🤍",
+                ],
+                
+                numberOfRowsCleared: 3
+            )
         )
     }
     
     func test_contact_clearing_rows_t_block() {
-        assertDidFillAndClearRows(
+        assertContact(
             piece: FallingPiece(block: .tBlock, rotation: .identity, coordinate: .init(column: 1, row: 2)),
-            expectedNumberOfRowsCleared: 2,
-
+            
             before: [
                 "🤍🤍🤍🤍🤍",
                 "💚🤍🤍🤍💛",
@@ -468,33 +397,67 @@ final class InlayPieceInRowsTests: TestCase {
                 "❤️❤️🤍❤️❤️"
             ],
             
-            expectedRowsAfterContactButBeforeBeingCleared: [
+            contact: .didFillAndClearRows(
+                
+                collidedRowsBeforeBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "💚🤍🤍🤍💛",
+                    "🧡🤍🤍🤍🤎",
+                    "💙💜💜💜💙",
+                    "❤️❤️💜❤️❤️"
+                ],
+                
+                rowsAfterBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "💚🤍🤍🤍💛",
+                    "🧡🤍🤍🤍🤎"
+                ],
+                
+                numberOfRowsCleared: 2
+            )
+        )
+    }
+    
+    func test_contact_clearing_1row_t_block() {
+        assertContact(
+            piece: FallingPiece(block: .tBlock, rotation: .idπClockwise, coordinate: .init(column: 1, row: 2)),
+            
+            before: [
                 "🤍🤍🤍🤍🤍",
                 "💚🤍🤍🤍💛",
                 "🧡🤍🤍🤍🤎",
-                "💙💜💜💜💙",
-                "❤️❤️💜❤️❤️"
+                "💙🤍🤍🤍💙",
+                "❤️❤️🤍❤️❤️"
             ],
             
-            
-            expectedRowsAfterContactAndAfterBeingCleared:  [
-                "🤍🤍🤍🤍🤍",
-                "🤍🤍🤍🤍🤍",
-                "🤍🤍🤍🤍🤍",
-                "💚🤍🤍🤍💛",
-                "🧡🤍🤍🤍🤎"
-            ]
+            contact: .didFillAndClearRows(
+                collidedRowsBeforeBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "💚🤍🤍🤍💛",
+                    "🧡🤍💜🤍🤎",
+                    "💙💜💜💜💙",
+                    "❤️❤️🤍❤️❤️"
+                ],
+                rowsAfterBeingCleared: [
+                    "🤍🤍🤍🤍🤍",
+                    "🤍🤍🤍🤍🤍",
+                    "💚🤍🤍🤍💛",
+                    "🧡🤍💜🤍🤎",
+                    "❤️❤️🤍❤️❤️"
+                ],
+                numberOfRowsCleared: 1
+            )
         )
     }
 }
 
 extension TestCase {
-    func assertDidFillAndClearRows(
+    func assertContact(
         piece: FallingPiece,
-        expectedNumberOfRowsCleared: Int,
         before rows: Rows,
-        expectedRowsAfterContactButBeforeBeingCleared: Rows,
-        expectedRowsAfterContactAndAfterBeingCleared: Rows
+        contact expectedContact: Rows.RowsReduction.Contact
     ) {
         let reduction: Rows.RowsReduction
         do {
@@ -503,33 +466,12 @@ extension TestCase {
             XCTFail("Unexpected error: \(error)")
             return
         }
-        guard case .contact(let contact) = reduction else {
+        guard case .contact(let actualContact) = reduction else {
             XCTFail("Expected .contact, but got: \(reduction)")
             return
         }
         
-        guard case .didFillAndClearRows(
-                let collidedRowsBeforeBeingCleared,
-                let numberOfRowsCleared,
-                let rowsAfterBeingCleared
-        ) = contact else {
-            XCTFail("Expected .didFillAndClearRows, but got: \(contact)")
-            return
-        }
-        
-        XCTAssertEqual(
-            collidedRowsBeforeBeingCleared,
-            expectedRowsAfterContactButBeforeBeingCleared
-        )
-        
-        XCTAssertEqual(
-            numberOfRowsCleared,
-            expectedNumberOfRowsCleared
-        )
-        
-        XCTAssertEqual(
-            rowsAfterBeingCleared,
-            expectedRowsAfterContactAndAfterBeingCleared
-        )
+        XCTAssertEqual(expectedContact, actualContact)
     }
+    
 }

@@ -19,8 +19,15 @@ public extension Rows {
         
         public enum Contact: Equatable {
             case noFilledRows(rowsAfterContact: Rows)
-            case didFillAndClearRows(collidedRowsBeforeBeingCleared: Rows, numberOfRowsCleared: Int, rowsAfterBeingCleared: Rows)
+            
+            case didFillAndClearRows(
+                    collidedRowsBeforeBeingCleared: Rows,
+                    rowsAfterBeingCleared: Rows,
+                    numberOfRowsCleared: Int
+                 )
+            
         }
+        
         case contact(Contact)
     }
     
@@ -48,12 +55,12 @@ public extension Rows {
                     self = rowsAfterContact
                     
                 case .didFillAndClearRows(
-                    let collidedRowsBeforeBeingCleared,
-                    let numberOfRowsCleared,
-                    let rowsAfterBeingCleared
+                        let collidedRowsBeforeBeingCleared,
+                        let rowsAfterBeingCleared,
+                    let numberOfRowsCleared
                 ):
-                    print("contact: #rows to clear: \(numberOfRowsCleared)")
-                    self = rowsAfterBeingCleared
+                print("contact: #rows to clear: \(numberOfRowsCleared)")
+                self = rowsAfterBeingCleared
                 }
             }
         } catch {
@@ -159,8 +166,8 @@ public extension Rows {
             .contact(
                 .didFillAndClearRows(
                     collidedRowsBeforeBeingCleared: inlayedRows,
-                    numberOfRowsCleared: numberOfFilledRows,
-                    rowsAfterBeingCleared: clearedRows
+                    rowsAfterBeingCleared: clearedRows,
+                    numberOfRowsCleared: numberOfFilledRows
                 )
             )
         )
