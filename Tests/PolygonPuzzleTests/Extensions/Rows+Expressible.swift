@@ -12,9 +12,12 @@ import Foundation
 extension Rows: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = Row
     public init(arrayLiteral rows: Row...) {
+        self.init(rowsWithoutIndices: rows)
+    }
+     init(rowsWithoutIndices: [Row]) {
         var rowIndex = 0
         self.init(
-            rows: rows.map { row in
+            rows: rowsWithoutIndices.map { row in
                 defer { rowIndex += 1 }
                 return Row(
                     at: rowIndex,

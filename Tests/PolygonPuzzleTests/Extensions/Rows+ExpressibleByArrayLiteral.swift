@@ -33,6 +33,16 @@ extension Row: ExpressibleByArrayLiteral {
         self.init(tiles: .init(repeating: tile, count: count), index: index)
     }
 }
+
+extension Rows: ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+    public init(stringLiteral rowsAsString: StringLiteralType) {
+        let rowStrings = rowsAsString.split(separator: "\n").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+        self.init(rowsWithoutIndices: rowStrings.map { Row(stringLiteral: $0) })
+    }
+}
+
+
 extension Row: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public init(stringLiteral rowAsString: StringLiteralType) {

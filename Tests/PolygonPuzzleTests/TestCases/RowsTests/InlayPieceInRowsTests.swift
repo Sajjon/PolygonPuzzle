@@ -285,21 +285,24 @@ final class InlayPieceInRowsTests: TestCase {
     func test_collision_no_rows_cleared() throws {
         assertContact(
             piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero),
-            before:  [
-                "🤍🤍🤍🤍🤍",
-                "🤍🤍🤍🤍🤍",
-                "🤍🤍💛🤍🤍",
-                "🤍🤍💛🤍🤍",
-                "🤍🤍💛🤍🤍"
-            ],
+            before:
+                """
+                                🤍🤍🤍🤍🤍
+                                🤍🤍🤍🤍🤍
+                                🤍🤍💛🤍🤍
+                                🤍🤍💛🤍🤍
+                                🤍🤍💛🤍🤍
+                                """
+            ,
             contact: .noFilledRows(
-                rowsAfterContact: [
-                    "🤍🤍🤍🤍🤍",
-                    "🤎🤎🤎🤎🤍",
-                    "🤍🤍💛🤍🤍",
-                    "🤍🤍💛🤍🤍",
-                    "🤍🤍💛🤍🤍"
-                ]
+                rowsAfterContact:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        🤎🤎🤎🤎🤍
+                                        🤍🤍💛🤍🤍
+                                        🤍🤍💛🤍🤍
+                                        🤍🤍💛🤍🤍
+                                        """
             )
             
         )
@@ -309,31 +312,37 @@ final class InlayPieceInRowsTests: TestCase {
         assertContact(
             piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 2, row: 1)),
             
-            before: [
-                "🤍🤍🤍🤍🤍",
-                "🤍🤍🤍🤍🤍",
-                "🤍🤍🤍🤍🤍",
-                "💛💛💛💛🤍",
-                "💛💛💛💛🤍"
-            ],
+            before:
+                """
+                                🤍🤍🤍🤍🤍
+                                🤍🤍🤍🤍🤍
+                                🤍🤍🤍🤍🤍
+                                💛💛💛💛🤍
+                                💛💛💛💛🤍
+                                """
+            ,
             
             contact: .didFillAndClearRows(
                 
-                collidedRowsBeforeBeingCleared: [
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤎",
-                    "🤍🤍🤍🤍🤎",
-                    "💛💛💛💛🤎",
-                    "💛💛💛💛🤎"
-                ],
+                collidedRowsBeforeBeingCleared:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤎
+                                        🤍🤍🤍🤍🤎
+                                        💛💛💛💛🤎
+                                        💛💛💛💛🤎
+                                        """
+                ,
                 
-                rowsAfterBeingCleared: [
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤎",
-                    "🤍🤍🤍🤍🤎",
-                ],
+                rowsAfterBeingCleared:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤎
+                                        🤍🤍🤍🤍🤎
+                                        """
+                ,
                 
                 numberOfRowsCleared: 2
             )
@@ -353,33 +362,34 @@ final class InlayPieceInRowsTests: TestCase {
     func test_contact_clearing_rows_3_column1_non_continous() {
         assertContact(
             piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
-            
-            before: [
-                "🤍🤍🤍🤍🤍",
-                "💚💜💙🤍💛",
-                "🤎❤️💚🤍🧡",
-                "💜💛💜🤍🤍",
-                "❤️🧡💚🤍❤️"
-            ],
-            
+            before:
+                """
+                                🤍🤍🤍🤍🤍
+                                💚💚💚🤍💙
+                                💚💚💚🤍❤️
+                                💚💚💚🤍🤍
+                                💚💚💚🤍💜
+                                """
+            ,
             contact: .didFillAndClearRows(
-                
-                collidedRowsBeforeBeingCleared: [
-                    "🤍🤍🤍🤍🤍",
-                    "💚💜💙🤎💛",
-                    "🤎❤️💚🤎🧡",
-                    "💜💛💜🤎🤍",
-                    "❤️🧡💚🤎❤️"
-                ],
-                
-                rowsAfterBeingCleared: [
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "💜💛💜🤎🤍",
-                ],
-                
+                collidedRowsBeforeBeingCleared:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        💚💚💚🤎💙
+                                        💚💚💚🤎❤️
+                                        💚💚💚🤎🤍
+                                        💚💚💚🤎💜
+                                        """
+                ,
+                rowsAfterBeingCleared:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        💚💚💚🤎🤍
+                                        """
+                ,
                 numberOfRowsCleared: 3
             )
         )
@@ -388,33 +398,34 @@ final class InlayPieceInRowsTests: TestCase {
     func test_contact_clearing_rows_t_block() {
         assertContact(
             piece: FallingPiece(block: .tBlock, rotation: .identity, coordinate: .init(column: 1, row: 2)),
-            
-            before: [
-                "🤍🤍🤍🤍🤍",
-                "💚🤍🤍🤍💛",
-                "🧡🤍🤍🤍🤎",
-                "💙🤍🤍🤍💙",
-                "❤️❤️🤍❤️❤️"
-            ],
-            
+            before:
+                """
+                                🤍🤍🤍🤍🤍
+                                💚🤍🤍🤍💛
+                                🧡🤍🤍🤍🤎
+                                💙🤍🤍🤍💙
+                                ❤️❤️🤍❤️❤️
+                                """
+            ,
             contact: .didFillAndClearRows(
-                
-                collidedRowsBeforeBeingCleared: [
-                    "🤍🤍🤍🤍🤍",
-                    "💚🤍🤍🤍💛",
-                    "🧡🤍🤍🤍🤎",
-                    "💙💜💜💜💙",
-                    "❤️❤️💜❤️❤️"
-                ],
-                
-                rowsAfterBeingCleared: [
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "🤍🤍🤍🤍🤍",
-                    "💚🤍🤍🤍💛",
-                    "🧡🤍🤍🤍🤎"
-                ],
-                
+                collidedRowsBeforeBeingCleared:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        💚🤍🤍🤍💛
+                                        🧡🤍🤍🤍🤎
+                                        💙💜💜💜💙
+                                        ❤️❤️💜❤️❤️
+                                        """
+                ,
+                rowsAfterBeingCleared:
+                    """
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        🤍🤍🤍🤍🤍
+                                        💚🤍🤍🤍💛
+                                        🧡🤍🤍🤍🤎
+                                        """
+                ,
                 numberOfRowsCleared: 2
             )
         )
