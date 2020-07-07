@@ -14,22 +14,22 @@ final class FallingPieceEdgesOfFilledSquareOfBlockTTests: PieceEdgeFilledSquareT
     
     // MARK: Top
     func test_assert_top_most_filled_square_of_block_t() {
-        doTest(edge: .top, expected: [.second, .first, .first, .first])
+        doTest(edge: .top, expected: [.first, .first, .second, .first])
     }
     
     // MARK: Bottom
     func test_assert_bottom_most_filled_square_of_block_t() {
-        doTest(edge: .bottom, expected: [.third, .third, .second, .third])
+        doTest(edge: .bottom, expected: [.second, .third, .third, .third])
     }
     
     // MARK: Left
     func test_assert_left_most_filled_square_of_block_t() {
-        doTest(edge: .left, expected: [.first, .first, .first, .second])
+        doTest(edge: .left, expected: [.first, .second, .first, .first])
     }
     
     // MARK: Right
     func test_assert_right_most_filled_square_of_block_t() {
-        doTest(edge: .right, expected: [.third, .second, .third, .third])
+        doTest(edge: .right, expected: [.third, .third, .third, .second])
     }
 }
 

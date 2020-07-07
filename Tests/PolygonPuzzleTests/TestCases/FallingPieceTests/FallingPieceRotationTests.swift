@@ -15,14 +15,14 @@ final class FallingPieceRotationTests: TestCase {
         
         var board = Board(
             fallingBlock: .tBlock,
-            fallingBlockRotation: .identity,
+            fallingBlockRotation: .idπClockwise,
             nextBlock: .jBlock,
             numberOfRows: 5,
             ofWidth: 5
         )
         
         XCTAssertEqual(board.fallingPiece.block, .tBlock)
-        XCTAssertEqual(board.fallingPiece.rotation, .identity)
+        XCTAssertEqual(board.fallingPiece.rotation, .idπClockwise)
 
         XCTAssertEqual(
             board.fallingPiece.bottomMostFilledSquare.rowIndex,

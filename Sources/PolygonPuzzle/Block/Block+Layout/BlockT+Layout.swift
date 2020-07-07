@@ -12,26 +12,26 @@ public extension Block {
         switch rotation {
         case .identity:
             return [
-                [0, 0, 0],
-                [1, 1, 1],
-                [0, 1, 0]
-            ]
-        case .idπ½Clockwise:
-            return [
-                [0, 1, 0],
-                [1, 1, 0],
-                [0, 1, 0]
-            ]
-        case .idπClockwise:
-            return [
                 [0, 1, 0],
                 [1, 1, 1],
                 [0, 0, 0]
             ]
-        case .id3π½Clockwise:
+        case .idπ½Clockwise:
             return [
                 [0, 1, 0],
                 [0, 1, 1],
+                [0, 1, 0]
+            ]
+        case .idπClockwise:
+            return [
+                [0, 0, 0],
+                [1, 1, 1],
+                [0, 1, 0]
+            ]
+        case .id3π½Clockwise:
+            return [
+                [0, 1, 0],
+                [1, 1, 0],
                 [0, 1, 0]
             ]
         }

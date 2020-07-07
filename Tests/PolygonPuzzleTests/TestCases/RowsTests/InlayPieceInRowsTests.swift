@@ -403,7 +403,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_contact_clearing_rows_t_block() {
         assertContact(
-            piece: FallingPiece(block: .tBlock, rotation: .identity, coordinate: .init(column: 1, row: 2)),
+            piece: FallingPiece(block: .tBlock, rotation: .idπClockwise, coordinate: .init(column: 1, row: 2)),
             before:
                 """
                                 🤍🤍🤍🤍🤍
@@ -439,7 +439,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_contact_clearing_1row_t_block() {
         assertContact(
-            piece: FallingPiece(block: .tBlock, rotation: .idπClockwise, coordinate: .init(column: 1, row: 2)),
+            piece: FallingPiece(block: .tBlock, rotation: .identity, coordinate: .init(column: 1, row: 2)),
             
             before: [
                 "🤍🤍🤍🤍🤍",
