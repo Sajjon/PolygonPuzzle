@@ -139,4 +139,45 @@ public extension Board {
         fallingPiece.moveRight()
         updateRows()
     }
+    
+    /// Tries to rotate the falling piece π ½ radians either clockwise or counter clockwise.
+    ///
+    /// The rotation is using [SRS rotation rules][SRS]. Below is an exerpt of those rules.
+    ///
+    /// # Basic rotation
+    /// - When unobstructed, the blocks all appear to rotate purely about a single point,
+    /// this point can be found by looking at the 4 different rotations of each [block](x-source-tag://Block),
+    /// where `R` denotes this rotatio point (axis).
+    /// - It is a pure rotation in a mathematical sense, as opposed to the combination of rotation
+    /// and translation found in other systems such as Sega Rotation and Atari Rotation.
+    /// - As a direct consequence, the [J](x-source-tag://Block.j), [L](x-source-tag://Block.l),
+    /// [S](x-source-tag://Block.s), [T](x-source-tag://Block.t) and [Z](x-source-tag://Block.z)
+    /// blocks have 1 of their 4 rotations in a "floating" position where they are not in contact
+    /// with the bottom of their bounding box.
+    /// - This allows the bounding box to descend below the floor of the playing field making it
+    /// impossible for the blocks to be rotated without the aid of "floor kicks".
+    /// - The [S](x-source-tag://Block.s), [Z](x-source-tag://Block.z) and [I](x-source-tag://Block.i)
+    /// blocks have two horizontally oriented states and two vertically oriented states. It can
+    /// be argued that having two vertical states leads to faster finesse.
+    /// - For the [I](x-source-tag://Block.i) and [O](x-source-tag://Block.o) blocks,
+    /// the apparent rotation center is at the intersection of gridlines, whereas for the other blocks,
+    /// the rotation center coincides with the center of one of the four constituent squares.
+    ///
+    /// # Wall Kicks
+    /// When the player attempts to rotate a block, but the position it would normally occupy
+    /// after basic rotation is obstructed, (either by the wall or floor of the playfield, or by the stack),
+    /// the game will attempt to "kick" the block into an alternative position nearby. Some points to note:
+    /// - foo
+    /// - bar
+    ///
+    /// [SRS]: https://harddrop.com/wiki/SRS
+    ///
+    mutating func rotatePiece(rotation: Rotation = .clockwise) throws {
+        implementMe()
+    }
+}
+
+public enum Rotation: String, Hashable {
+    case counterClockwise
+    case clockwise
 }
