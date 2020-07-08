@@ -28,7 +28,7 @@ final class InlayPieceInRowsTests: TestCase {
                     [0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0]
                 ],
-                inlaying: FallingPiece(block: .iBlock, rotation: .identity)
+                inlaying: FallingPiece(block: .iBlock, rotationState: .identity)
             ).get()
         )
     }
@@ -42,7 +42,7 @@ final class InlayPieceInRowsTests: TestCase {
             [0, 0, 0, 0, 0]
         ]
         
-        let piece = FallingPiece(block: .iBlock, rotation: .identity)
+        let piece = FallingPiece(block: .iBlock, rotationState: .identity)
         
         let reduction = try XCTGet(Rows.reduce(state: rows, inlaying: piece))
         XCTAssertEqual(reduction, Rows.RowsReduction.pieceNotInFrame(rowsIncludingFallingPiece: [
@@ -56,7 +56,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_assert_that_when_merging_a_piece_rotation_identity_at_row0_with_rows_with_overlapping_squares_an_error_is_thrown() {
         func assertCollision(rows: Rows) {
-            let piece = FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero)
+            let piece = FallingPiece(block: .iBlock, rotationState: .identity, coordinate: .zero)
             XCTFailure(
                 Rows.reduce(state: rows, inlaying: piece),
                 failsWithError: Rows.InlayPieceError.squaresOverlap
@@ -66,7 +66,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -77,7 +77,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -87,7 +87,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -97,7 +97,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -107,7 +107,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_assert_that_when_merging_a_piece_rotation_identity_at_row_minus1_with_rows_with_overlapping_squares_an_error_is_thrown() {
         func assertCollision(rows: Rows) {
-            let piece = FallingPiece(block: .iBlock, rotation: .identity, coordinate: .init(column: 0, row: -1))
+            let piece = FallingPiece(block: .iBlock, rotationState: .identity, coordinate: .init(column: 0, row: -1))
             XCTFailure(
                 Rows.reduce(state: rows, inlaying: piece),
                 failsWithError: Rows.InlayPieceError.squaresOverlap
@@ -116,7 +116,7 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertCollision(
             rows: [
-                [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [1, 0, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -126,7 +126,7 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertCollision(
             rows: [
-                [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 1, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -137,7 +137,7 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertCollision(
             rows: [
-                [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 1, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -147,7 +147,7 @@ final class InlayPieceInRowsTests: TestCase {
         
         assertCollision(
             rows: [
-                [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 1, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -159,14 +159,14 @@ final class InlayPieceInRowsTests: TestCase {
     func test_assert_that_when_merging_a_piece_rotation_idπClockwise_at_row_minus1_with_rows_with_overlapping_squares_at_row_of_id_rotation_no_error_is_thrown() {
         
         func assertNoCollision(rows: Rows) {
-            let piece = FallingPiece(block: .iBlock, rotation: .idπClockwise, coordinate: .init(column: 0, row: -1))
+            let piece = FallingPiece(block: .iBlock, rotationState: .idπClockwise, coordinate: .init(column: 0, row: -1))
             XCTAssertNoThrow(try Rows.reduce(state: rows, inlaying: piece).get())
         }
         
         assertNoCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [1, 0, 0, 0, 0]
@@ -176,7 +176,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertNoCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [1, 1, 0, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -186,7 +186,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertNoCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [1, 1, 1, 0, 0],
                 [0, 0, 0, 0, 0]
@@ -197,7 +197,7 @@ final class InlayPieceInRowsTests: TestCase {
         assertNoCollision(
             rows: [
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotation `.identity`
+                [0, 0, 0, 0, 0], // <--- `piece` will fill this row with rotationState `.identity`
                 [0, 0, 0, 0, 0],
                 [1, 1, 0, 1, 0],
                 [0, 0, 0, 0, 0]
@@ -207,7 +207,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_assert_that_when_merging_a_piece_rotation_idπ½Clockwise_at_row0_with_rows_with_overlapping_squares_an_error_is_thrown() {
         func assertReduction(pieceColumn: Int, expectCollision: Bool, rows: Rows) {
-            let piece = FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: pieceColumn, row: 0))
+            let piece = FallingPiece(block: .iBlock, rotationState: .idπ½Clockwise, coordinate: .init(column: pieceColumn, row: 0))
             if expectCollision {
                 XCTFailure(
                     Rows.reduce(state: rows, inlaying: piece),
@@ -290,7 +290,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_collision_no_rows_cleared() throws {
         assertContact(
-            piece: FallingPiece(block: .iBlock, rotation: .identity, coordinate: .zero),
+            piece: FallingPiece(block: .iBlock, rotationState: .identity, coordinate: .zero),
             before:
                 """
                                 🤍🤍🤍🤍🤍
@@ -316,7 +316,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_contact_clearing_rows_2_column2() {
         assertContact(
-            piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 2, row: 1)),
+            piece: FallingPiece(block: .iBlock, rotationState: .idπ½Clockwise, coordinate: .init(column: 2, row: 1)),
             
             before:
                 """
@@ -367,7 +367,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_contact_clearing_rows_3_column1_non_continous() {
         assertContact(
-            piece: FallingPiece(block: .iBlock, rotation: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
+            piece: FallingPiece(block: .iBlock, rotationState: .idπ½Clockwise, coordinate: .init(column: 1, row: 1)),
             before:
                 """
                                 🤍🤍🤍🤍🤍
@@ -403,7 +403,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_contact_clearing_rows_t_block() {
         assertContact(
-            piece: FallingPiece(block: .tBlock, rotation: .idπClockwise, coordinate: .init(column: 1, row: 2)),
+            piece: FallingPiece(block: .tBlock, rotationState: .idπClockwise, coordinate: .init(column: 1, row: 2)),
             before:
                 """
                                 🤍🤍🤍🤍🤍
@@ -439,7 +439,7 @@ final class InlayPieceInRowsTests: TestCase {
     
     func test_contact_clearing_1row_t_block() {
         assertContact(
-            piece: FallingPiece(block: .tBlock, rotation: .identity, coordinate: .init(column: 1, row: 2)),
+            piece: FallingPiece(block: .tBlock, rotationState: .identity, coordinate: .init(column: 1, row: 2)),
             
             before: [
                 "🤍🤍🤍🤍🤍",

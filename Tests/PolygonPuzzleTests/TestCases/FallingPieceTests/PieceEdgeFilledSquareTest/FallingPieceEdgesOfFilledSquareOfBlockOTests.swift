@@ -36,6 +36,6 @@ final class FallingPieceEdgesOfFilledSquareOfBlockOTests: PieceEdgeFilledSquareT
 
 private extension FallingPieceEdgesOfFilledSquareOfBlockOTests {
     func doTest(edge: Edge, expected: Int) {
-        doTest(rotationsOfBlock: .oBlock, edge: edge, expected: .init(repeating: expected, count: BlockRotation.allCases.count))
+        doTest(rotationsOfBlock: .oBlock, edge: edge, expected: .init(repeating: expected, count: RotationState.allCases.count))
     }
 }

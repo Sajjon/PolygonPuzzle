@@ -8,8 +8,8 @@
 import Foundation
 
 public extension Block {
-    static func layoutOfBlockZ(rotation: BlockRotation) -> Layout {
-        switch rotation {
+    static func layoutOfBlockZ(rotationState: RotationState) -> Layout {
+        switch rotationState {
         case .identity:
             return [
                 [1, 1, 0],

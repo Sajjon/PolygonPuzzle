@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum BlockRotation: Hashable, CaseIterable {
+public enum RotationState: Hashable, CaseIterable {
     case identity
     case idπ½Clockwise
     case idπClockwise
@@ -37,12 +37,19 @@ private extension CaseIterable where Self: Equatable, AllCases == [Self] {
     }
 }
 
-public extension BlockRotation {
+public extension RotationState {
     func clockwiseRotation() -> Self {
         self.elementAfterWrappingAround()
     }
     
     func counterClockwiseRotation() -> Self {
         self.elementBeforeWrappingAround()
+    }
+    
+    func rotated(rotation: Rotation) -> Self {
+        switch rotation {
+        case .clockwise: return clockwiseRotation()
+        case .counterClockwise: return counterClockwiseRotation()
+        }
     }
 }

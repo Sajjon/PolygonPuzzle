@@ -21,10 +21,10 @@ class PieceEdgeFilledSquareTest: TestCase {
     
     func doTest(rotationsOfBlock block: Block, edge: Edge, expected: [Int]) {
         
-        let actual: [Int] = BlockRotation.allCases.map { rotation in
+        let actual: [Int] = RotationState.allCases.map { rotationState in
             let piece = FallingPiece(
                 block: block,
-                rotation: rotation,
+                rotationState: rotationState,
                 coordinate: .init(column: 0, row: 0)
             )
             let square = piece.firstFilledSquareFromEdge(edge)

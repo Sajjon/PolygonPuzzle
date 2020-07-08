@@ -8,8 +8,8 @@
 import Foundation
 
 public extension Block {
-    static func layoutOfBlockO(rotation: BlockRotation) -> Layout {
-        // dont care about rotation... same for every rotation
+    static func layoutOfBlockO(rotationState: RotationState) -> Layout {
+        // dont care about rotationState... same for every rotationState
         return [
             [1, 1],
             [1, 1]

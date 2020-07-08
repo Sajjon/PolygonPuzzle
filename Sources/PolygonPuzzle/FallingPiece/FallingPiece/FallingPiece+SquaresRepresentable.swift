@@ -23,7 +23,7 @@ public extension FallingPiece {
     }
     
     var squares: [Square] {
-        Self.squaresWithInternalLayout(block: block, rotation: rotation).flatMap { row in
+        Self.squaresWithInternalLayout(block: block, rotationState: rotationState).flatMap { row in
             row.map { layoutSquare in
                 Square(
                     columnIndex: layoutSquare.relativeCoordinate.x + abstractFrame.coordinate.x,
@@ -44,9 +44,9 @@ public extension FallingPiece {
     
     static func squaresWithInternalLayout(
         block: Block,
-        rotation: BlockRotation
+        rotationState: RotationState
     ) -> [[LayingOutSquare]] {
-        let rawLayout: [[Int]] = block.rawLayout(rotation: rotation)
+        let rawLayout: [[Int]] = block.rawLayout(rotationState: rotationState)
         
         let tileFromRaw: (Int) -> Tile = {
             guard $0 != 0 else { return .empty }

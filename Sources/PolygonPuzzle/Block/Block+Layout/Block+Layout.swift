@@ -10,26 +10,26 @@ import Foundation
 public extension Block {
     typealias Layout =  [[Int]]
     
-    static func layoutOfBlock(_ block: Self, rotation: BlockRotation) -> Layout {
-        block.rawLayout(rotation: rotation)
+    static func layoutOfBlock(_ block: Self, rotationState: RotationState) -> Layout {
+        block.rawLayout(rotationState: rotationState)
     }
     
-    func rawLayout(rotation: BlockRotation) -> Layout {
+    func rawLayout(rotationState: RotationState) -> Layout {
         switch self {
         case .iBlock:
-            return Block.layoutOfBlockI(rotation: rotation)
+            return Block.layoutOfBlockI(rotationState: rotationState)
         case .jBlock:
-            return Block.layoutOfBlockJ(rotation: rotation)
+            return Block.layoutOfBlockJ(rotationState: rotationState)
         case .zBlock:
-            return Block.layoutOfBlockZ(rotation: rotation)
+            return Block.layoutOfBlockZ(rotationState: rotationState)
         case .sBlock:
-            return Block.layoutOfBlockS(rotation: rotation)
+            return Block.layoutOfBlockS(rotationState: rotationState)
         case .tBlock:
-            return Block.layoutOfBlockT(rotation: rotation)
+            return Block.layoutOfBlockT(rotationState: rotationState)
         case .lBlock:
-            return Block.layoutOfBlockL(rotation: rotation)
+            return Block.layoutOfBlockL(rotationState: rotationState)
         case .oBlock:
-            return Block.layoutOfBlockO(rotation: rotation)
+            return Block.layoutOfBlockO(rotationState: rotationState)
         }
     }
 }

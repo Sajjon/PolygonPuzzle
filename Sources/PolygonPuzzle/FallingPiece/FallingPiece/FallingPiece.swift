@@ -10,18 +10,18 @@ import Foundation
 public struct FallingPiece: SquaresRepresentable, Hashable {
     
     public let block: Block
-    public let rotation: BlockRotation
+    public let rotationState: RotationState
     
     /// The size and coordinate of the bounding box of this falling piece.
     public internal(set) var abstractFrame: BoundingBox
     
     public init(
         block: Block,
-        rotation: BlockRotation = .identity,
+        rotationState: RotationState = .identity,
         coordinate: Coordinate? = nil
     ) {
         self.block = block
-        self.rotation = rotation
+        self.rotationState = rotationState
         
         let size = block.size
         self.abstractFrame = .init(
@@ -34,12 +34,12 @@ public struct FallingPiece: SquaresRepresentable, Hashable {
 public extension FallingPiece {
     init(
         block: Block,
-        rotation: BlockRotation = .identity,
+        rotationState: RotationState = .identity,
         centerInColumn: Int
     ) {
         self.init(
             block: block,
-            rotation: rotation,
+            rotationState: rotationState,
             coordinate: .init(
                 x: centerInColumn - block.size.width/2,
                 y: -block.size.height

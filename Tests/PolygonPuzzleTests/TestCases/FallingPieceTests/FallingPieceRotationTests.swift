@@ -22,7 +22,7 @@ final class FallingPieceRotationTests: TestCase {
         )
         
         XCTAssertEqual(board.fallingPiece.block, .tBlock)
-        XCTAssertEqual(board.fallingPiece.rotation, .idπClockwise)
+        XCTAssertEqual(board.fallingPiece.rotationState, .idπClockwise)
 
         XCTAssertEqual(
             board.fallingPiece.bottomMostFilledSquare.rowIndex,

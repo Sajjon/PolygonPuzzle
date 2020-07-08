@@ -10,7 +10,7 @@ public extension Block {
 
     
     var size: Size {
-        let layout = rawLayout(rotation: .identity)
+        let layout = rawLayout(rotationState: .identity)
         let height = layout.count
         assert(height > 0)
         let width = layout[0].count
